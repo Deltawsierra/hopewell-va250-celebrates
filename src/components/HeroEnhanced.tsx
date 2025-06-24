@@ -106,7 +106,7 @@ const HeroEnhanced: React.FC<HeroEnhancedProps> = ({ onScrollToSection }) => {
             }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           >
-            Hopewell <span className="text-[#BF0A30]">VA250</span>
+            Hopewell <span className="text-[#002868]">VA250</span>
           </motion.h1>
           
           <motion.h2 

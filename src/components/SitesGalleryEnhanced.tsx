@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { MapPin, Clock, Camera } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -95,7 +94,7 @@ const SitesGalleryEnhanced = () => {
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6, ease: [0.4, 0, 0.2, 1] }
+      transition: { duration: 0.6, ease: "easeOut" }
     }
   };
 

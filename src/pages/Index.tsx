@@ -52,60 +52,32 @@ const Index = () => {
         className="py-20 bg-gradient-to-b from-white to-blue-50"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6 }}
       >
         <div className="max-w-6xl mx-auto px-6">
           <motion.div 
             className="text-center mb-16"
-            initial={{ opacity: 0, y: -50 }}
+            initial={{ opacity: 0, y: -30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.6 }}
           >
-            <motion.h2 
-              className="text-4xl md:text-5xl font-bold text-[#002868] mb-6"
-              animate={{
-                textShadow: [
-                  "0 0 20px rgba(0, 40, 104, 0.3)",
-                  "0 0 30px rgba(0, 40, 104, 0.2)",
-                  "0 0 20px rgba(0, 40, 104, 0.3)",
-                ],
-              }}
-              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            >
+            <h2 className="text-4xl md:text-5xl font-bold text-[#002868] mb-6">
               What is VA250?
-            </motion.h2>
-            <motion.p 
-              className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
+            </h2>
+            <p className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed mb-8">
               The VA250 celebration marks 250 years since the American Revolution, honoring Virginia's pivotal role 
               in the nation's founding and Hopewell's place at the crossroads of American history.
-            </motion.p>
-            <motion.h3 
-              className="text-3xl font-bold text-[#002868] mb-4"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
+            </p>
+            <h3 className="text-3xl font-bold text-[#002868] mb-4">
               Hopewell's Unique Story
-            </motion.h3>
-            <motion.p 
-              className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
+            </h3>
+            <p className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
               Hopewell, formerly known as City Point, stands on a bluff where the James and Appomattox rivers meet—a 
               location that has made it a center of commerce, conflict, and community for over 400 years. From its 
               colonial roots to its role in the Civil War and industrial innovation, Hopewell continues to make history.
-            </motion.p>
+            </p>
           </motion.div>
           
           <motion.div 
@@ -114,7 +86,7 @@ const Index = () => {
               hidden: {},
               visible: {
                 transition: {
-                  staggerChildren: 0.2
+                  staggerChildren: 0.1
                 }
               }
             }}
@@ -143,19 +115,23 @@ const Index = () => {
                 key={index}
                 className="text-center p-8 bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
                 variants={{
-                  hidden: { opacity: 0, y: 50 },
-                  visible: { opacity: 1, y: 0 }
+                  hidden: { opacity: 0, y: 30 },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0,
+                    transition: { duration: 0.4, ease: "easeOut" }
+                  }
                 }}
                 whileHover={{ 
-                  y: -10,
-                  transition: { duration: 0.3 }
+                  y: -5,
+                  transition: { duration: 0.2 }
                 }}
               >
                 <motion.div 
                   className="w-16 h-16 bg-[#BF0A30] rounded-full flex items-center justify-center mx-auto mb-4"
                   whileHover={{ 
-                    scale: 1.1,
-                    boxShadow: "0 10px 25px rgba(191, 10, 48, 0.3)"
+                    scale: 1.05,
+                    transition: { duration: 0.2 }
                   }}
                 >
                   <span className="text-2xl font-bold text-white">{item.year}</span>
@@ -169,10 +145,10 @@ const Index = () => {
           {/* Cultural History Section */}
           <motion.div 
             className="mt-16 p-8 bg-gradient-to-r from-blue-50 to-red-50 rounded-xl"
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.8 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
             <h3 className="text-3xl font-bold text-[#002868] mb-4 text-center">
               Cultural & African American History

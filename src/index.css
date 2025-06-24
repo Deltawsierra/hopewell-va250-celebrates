@@ -118,7 +118,7 @@
   background: #BF0A30;
 }
 
-/* Custom Animations */
+/* Enhanced Custom Animations */
 .animate-fade-in {
   animation: fade-in 0.8s ease-out forwards;
 }
@@ -127,14 +127,43 @@
   animation: scale-in 0.3s ease-out forwards;
 }
 
-/* Patriotic Star Pattern Background */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Enhanced Patriotic Star Pattern Background */
 .star-pattern {
-  background-image: radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.3), transparent),
-                    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.2), transparent),
-                    radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.3), transparent),
-                    radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.2), transparent);
+  background-image: radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.4), transparent),
+                    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.3), transparent),
+                    radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.4), transparent),
+                    radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.3), transparent),
+                    radial-gradient(2px 2px at 160px 30px, rgba(255,255,255,0.4), transparent);
   background-repeat: repeat;
-  background-size: 150px 120px;
+  background-size: 200px 150px;
+  animation: star-drift 20s linear infinite;
+}
+
+@keyframes star-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 200px 150px; }
 }
 
 /* Smooth scroll behavior */
@@ -142,10 +171,11 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Focus styles for accessibility */
+/* Enhanced Focus styles for accessibility */
 *:focus {
-  outline: 2px solid #BF0A30;
+  outline: 3px solid #BF0A30;
   outline-offset: 2px;
+  transition: outline 0.2s ease;
 }
 
 /* High contrast mode support */
@@ -158,7 +188,7 @@ html {
   }
 }
 
-/* Reduced motion support */
+/* Enhanced Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
@@ -166,4 +196,61 @@ html {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+  
+  .star-pattern {
+    animation: none !important;
+  }
+}
+
+/* Custom spotlight effect utilities */
+.spotlight-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(191, 10, 48, 0.15) 0%,
+    transparent 50%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+/* Glowing text effect */
+.glow-text {
+  text-shadow: 0 0 10px rgba(191, 10, 48, 0.5),
+               0 0 20px rgba(191, 10, 48, 0.3),
+               0 0 30px rgba(191, 10, 48, 0.2);
+}
+
+/* Patriotic gradient backgrounds */
+.patriotic-gradient {
+  background: linear-gradient(
+    135deg,
+    #002868 0%,
+    #BF0A30 50%,
+    #002868 100%
+  );
+}
+
+.patriotic-gradient-subtle {
+  background: linear-gradient(
+    135deg,
+    rgba(0, 40, 104, 0.1) 0%,
+    rgba(191, 10, 48, 0.1) 50%,
+    rgba(0, 40, 104, 0.1) 100%
+  );
 }

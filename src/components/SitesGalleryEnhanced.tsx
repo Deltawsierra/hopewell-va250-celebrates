@@ -91,11 +91,7 @@ const SitesGalleryEnhanced = () => {
 
   const cardVariants = {
     hidden: { opacity: 0, y: 50 },
-    visible: { 
-      opacity: 1, 
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" }
-    }
+    visible: { opacity: 1, y: 0 }
   };
 
   return (
@@ -153,6 +149,7 @@ const SitesGalleryEnhanced = () => {
               key={site.id}
               className="group relative bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer"
               variants={cardVariants}
+              transition={{ duration: 0.6, ease: "easeOut" }}
               drag
               dragConstraints={{ left: -20, right: 20, top: -20, bottom: 20 }}
               dragElastic={0.1}

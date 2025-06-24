@@ -56,7 +56,8 @@ const Hero: React.FC<HeroProps> = ({ onScrollToSection }) => {
             Celebrating 250 Years of American History
           </h2>
           <p className="text-xl md:text-2xl text-white mb-12 leading-relaxed">
-            Discover Hopewell's role in America's story. Join the citywide celebration with events, historic sites, and more.
+            From City Point's colonial founding in 1613 to today, Hopewell has shaped America's story. 
+            Discover centuries of history, innovation, and resilience at the confluence of the James and Appomattox rivers.
           </p>
           
           <button

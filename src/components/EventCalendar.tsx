@@ -9,42 +9,62 @@ const EventCalendar = () => {
   const events = [
     {
       id: 1,
+      title: 'VA250 Kickoff at Weston Manor',
+      date: '2026-07-04',
+      time: '2:00 PM',
+      location: 'Weston Manor',
+      type: 'history',
+      description: 'Grand opening celebration with tours, reenactments, live music, and colonial demonstrations at the historic Georgian plantation house.',
+      image: '/lovable-uploads/4ef163f0-80dd-406a-9417-18f599ad2fb4.png'
+    },
+    {
+      id: 2,
+      title: 'City Point History Walk',
+      date: '2026-08-15',
+      time: '10:00 AM',
+      location: 'City Point Waterfront',
+      type: 'history',
+      description: 'Monthly guided walking tour exploring 400+ years of history at the confluence of the James and Appomattox rivers.',
+      image: '/lovable-uploads/610d8137-4117-41b8-9ccc-545384c32298.png'
+    },
+    {
+      id: 3,
       title: 'Family Day at Beacon Theatre',
       date: '2026-08-17',
       time: '11:00 AM',
       location: 'Beacon Theatre',
       type: 'family',
-      description: 'Enjoy live music, local food, and free tours of the historic Beacon Theatre.',
+      description: 'Enjoy live music, local food, and free tours of the historic Art Deco theatre with family-friendly activities.',
       image: '/lovable-uploads/344b973c-e994-4ca6-9ad0-c656d473c838.png'
     },
     {
-      id: 2,
-      title: 'Appomattox Manor Historic Tour',
-      date: '2026-07-04',
-      time: '2:00 PM',
+      id: 4,
+      title: 'Civil War Living History',
+      date: '2026-09-15',
+      time: '10:00 AM',
       location: 'Appomattox Manor',
       type: 'history',
-      description: 'Guided tour of Grant\'s Civil War headquarters with expert historians.',
+      description: 'Experience Grant\'s headquarters come alive with authentic Civil War demonstrations and historical interpretation.',
       image: '/lovable-uploads/3d6ba77e-c74b-47fe-919e-0a1a2a29d809.png'
     },
     {
-      id: 3,
-      title: 'Revolutionary War Reenactment',
-      date: '2026-09-15',
-      time: '10:00 AM',
-      location: 'City Point Park',
-      type: 'history',
-      description: 'Experience history come alive with authentic Revolutionary War demonstrations.',
-      image: '/lovable-uploads/1864d2d9-862b-4f08-b57a-bef264b9e835.png'
-    },
-    {
-      id: 4,
+      id: 5,
       title: 'VA250 Community Festival',
       date: '2026-10-12',
       time: '9:00 AM',
       location: 'Downtown Hopewell',
       type: 'community',
-      description: 'Celebrate America\'s 250th with local vendors, music, and family activities.',
+      description: 'Celebrate America\'s 250th with local vendors, live music, family activities, and exhibits showcasing Hopewell\'s 400+ year history.',
+      image: '/lovable-uploads/bcd6728f-2e29-4995-9579-b5114652ca3c.png'
+    },
+    {
+      id: 6,
+      title: 'Industrial Heritage Tour',
+      date: '2026-11-08',
+      time: '1:00 PM',
+      location: 'Historic Downtown',
+      type: 'history',
+      description: 'Explore Hopewell\'s transformation from colonial tobacco port to 20th-century industrial powerhouse.',
       image: '/lovable-uploads/bcd6728f-2e29-4995-9579-b5114652ca3c.png'
     }
   ];
@@ -79,7 +99,7 @@ const EventCalendar = () => {
             Upcoming VA250 Events in Hopewell
           </h2>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Join us for memorable celebrations honoring America's heritage
+            Join us for memorable celebrations honoring America's heritage and Hopewell's unique place in history
           </p>
         </div>
 

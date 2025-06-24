@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Calendar, Star, Home, Flag } from 'lucide-react';
+import { Calendar, Star, Home, Flag, Factory, Ship } from 'lucide-react';
 
 const Timeline = () => {
   const [selectedEvent, setSelectedEvent] = useState<number | null>(null);
@@ -9,48 +9,80 @@ const Timeline = () => {
     {
       year: 1613,
       title: 'City Point Founded',
-      description: 'First settled as Bermuda Cittie by Sir Thomas Dale, marking the beginning of one of Virginia\'s oldest communities.',
-      trivia: 'Did you know? City Point was originally named after the Bermuda Company!',
+      description: 'Sir Thomas Dale establishes City Point as a strategic settlement at the confluence of the James and Appomattox rivers.',
+      trivia: 'Did you know? Early English settlement called "Bermuda City" housed up to 119 people according to John Rolfe!',
       icon: Home,
       color: 'bg-[#002868]'
     },
     {
-      year: 1789,
-      title: 'Weston Manor Built',
-      description: 'This Georgian-style plantation house was constructed, representing the prosperity of early American agriculture.',
-      trivia: 'Did you know? Weston Manor features some of the finest colonial architecture in Virginia!',
-      icon: Home,
+      year: 1700,
+      title: 'Tobacco Hub',
+      description: 'City Point becomes a major tobacco export center with warehouses serving colonial Virginia commerce.',
+      trivia: 'Did you know? City Point\'s tobacco warehouses were among the most important in colonial Virginia!',
+      icon: Ship,
       color: 'bg-[#BF0A30]'
     },
     {
-      year: 1864,
-      title: 'Grant\'s Headquarters',
-      description: 'City Point served as Union General Ulysses S. Grant\'s headquarters during the Siege of Petersburg.',
-      trivia: 'Did you know? Abraham Lincoln visited Hopewell multiple times during the Civil War!',
+      year: 1781,
+      title: 'Revolutionary War',
+      description: 'Benedict Arnold\'s British troops pass through City Point during the Revolutionary War campaign.',
+      trivia: 'Did you know? City Point played a strategic role in the Revolutionary War as British and American forces moved through the area!',
       icon: Flag,
       color: 'bg-[#002868]'
     },
     {
+      year: 1826,
+      title: 'Town Incorporation',
+      description: 'The Town of City Point is officially incorporated, marking its formal establishment as a municipal entity.',
+      trivia: 'Did you know? City Point was one of Virginia\'s earliest incorporated towns!',
+      icon: Home,
+      color: 'bg-[#BF0A30]'
+    },
+    {
+      year: 1840,
+      title: 'Railroad Arrives',
+      description: 'City Point Railroad Company operates one of the earliest U.S. rail lines between City Point and Petersburg.',
+      trivia: 'Did you know? The City Point Railroad was a pioneering transportation link in early America!',
+      icon: Star,
+      color: 'bg-[#002868]'
+    },
+    {
+      year: 1864,
+      title: 'Grant\'s Headquarters',
+      description: 'General Grant establishes headquarters at Appomattox Manor. City Point becomes one of the world\'s busiest ports during the Petersburg Siege.',
+      trivia: 'Did you know? Union hospitals at City Point could treat up to 10,000 patients, and President Lincoln visited twice during the siege!',
+      icon: Flag,
+      color: 'bg-[#BF0A30]'
+    },
+    {
       year: 1916,
       title: 'Industrial Boom',
-      description: 'DuPont established a major manufacturing facility, transforming Hopewell into an industrial center.',
-      trivia: 'Did you know? Hopewell was once called the "Wonder City" due to its rapid industrial growth!',
+      description: 'DuPont builds guncotton factory, triggering Hopewell\'s incorporation and explosive population growth to 40,000 residents.',
+      trivia: 'Did you know? Hopewell was called the "Wonder City" due to its rapid industrial transformation!',
+      icon: Factory,
+      color: 'bg-[#002868]'
+    },
+    {
+      year: 1928,
+      title: 'Beacon Theatre Opens',
+      description: 'The Art Deco Beacon Theatre opens as a vaudeville stage and movie theater, designed by Fred Bishop who also designed Richmond\'s Byrd Theatre.',
+      trivia: 'Did you know? The Beacon Theatre was saved from collapse and reopened in 2014 with a sold-out Leon Russell concert!',
       icon: Star,
       color: 'bg-[#BF0A30]'
     },
     {
-      year: 1920,
-      title: 'Beacon Theatre Opens',
-      description: 'The iconic Beacon Theatre opened its doors, becoming a cultural centerpiece for the community.',
-      trivia: 'Did you know? The Beacon Theatre\'s neon sign is a beloved landmark visible from miles away!',
-      icon: Star,
+      year: 1940,
+      title: 'WWII Industrial Center',
+      description: 'New industries like Tubize artificial silk, ANCO/Allied Chemical manufacturing, and Camp Lee military base fuel continued growth.',
+      trivia: 'Did you know? Hopewell\'s industries were crucial to America\'s World War II effort!',
+      icon: Factory,
       color: 'bg-[#002868]'
     },
     {
       year: 2026,
       title: 'VA250 Celebration',
-      description: 'Hopewell joins the nation in celebrating America\'s 250th anniversary with special events and commemorations.',
-      trivia: 'Did you know? VA250 will be the largest patriotic celebration in American history!',
+      description: 'Hopewell joins the nation in celebrating America\'s 250th anniversary with special events highlighting four centuries of history.',
+      trivia: 'Did you know? VA250 will be the largest patriotic celebration in American history, and Hopewell has over 400 years of stories to share!',
       icon: Flag,
       color: 'bg-[#BF0A30]'
     }
@@ -61,18 +93,18 @@ const Timeline = () => {
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-[#002868] mb-6">
-            Journey Through History
+            Four Centuries of History
           </h2>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Explore the pivotal moments that shaped Hopewell and America
+            Explore the pivotal moments that shaped Hopewell and America from 1613 to today
           </p>
         </div>
 
         {/* Desktop Timeline */}
-        <div className="hidden md:block relative">
+        <div className="hidden md:block relative overflow-x-auto">
           <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-[#002868] via-[#BF0A30] to-[#002868] transform -translate-y-1/2" />
           
-          <div className="flex justify-between items-center relative">
+          <div className="flex justify-between items-center relative min-w-[1000px]">
             {timelineEvents.map((event, index) => {
               const IconComponent = event.icon;
               return (

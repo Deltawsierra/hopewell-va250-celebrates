@@ -1,73 +1,58 @@
-# Welcome to your Lovable project
 
-## Project info
+# Hopewell VA250 Celebration Website
 
-**URL**: https://lovable.dev/projects/dc59c2db-3175-4308-a399-c41cc3f4f47d
+## Project Overview
 
-## How can I edit this code?
+This is the official website for Hopewell's VA250 celebration, commemorating 250 years of American history and Hopewell's role in shaping the nation's story.
 
-There are several ways of editing your application.
+## Local Development
 
-**Use Lovable**
+To run this project locally, you'll need Node.js and npm installed.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/dc59c2db-3175-4308-a399-c41cc3f4f47d) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+### Setup Instructions
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# Clone the repository
+git clone <repository-url>
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Navigate to the project directory
+cd hopewell-va250
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Install dependencies
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start the development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
+## Technology Stack
 
 This project is built with:
 
 - Vite
 - TypeScript
 - React
-- shadcn-ui
 - Tailwind CSS
+- Framer Motion
+- Lucide React Icons
 
-## How can I deploy this project?
+## Project Structure
 
-Simply open [Lovable](https://lovable.dev/projects/dc59c2db-3175-4308-a399-c41cc3f4f47d) and click on Share -> Publish.
+The website features:
+- Interactive hero section with patriotic animations
+- Historic sites gallery with detailed information
+- Event calendar for VA250 celebrations
+- Timeline of Hopewell's history
+- Responsive design optimized for all devices
 
-## Can I connect a custom domain to my Lovable project?
+## Deployment
 
-Yes, you can!
+The site is configured for static hosting and can be deployed to any modern web hosting platform.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Contributing
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This project is maintained by the City of Hopewell development team. For questions or contributions, please contact the city's digital services department.
+
+## License
+
+© 2024 City of Hopewell, Virginia. All rights reserved.

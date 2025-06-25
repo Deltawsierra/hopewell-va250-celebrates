@@ -86,7 +86,7 @@ const Footer = () => {
           </div>
           
           <p className="text-gray-400 text-sm">
-            © 2026 City of Hopewell, Virginia. All rights reserved. | Part of America's VA250 Celebration
+            © 2025 City of Hopewell, Virginia. All rights reserved. | Part of America's VA250 Celebration
           </p>
         </div>
       </div>

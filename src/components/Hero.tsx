@@ -19,7 +19,7 @@ const Hero: React.FC<HeroProps> = ({ onScrollToSection }) => {
       <div 
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: `url('/hopewell-uploads/344b973c-e994-4ca6-9ad0-c656d473c838.png')`,
+          backgroundImage: `url('/lovable-uploads/344b973c-e994-4ca6-9ad0-c656d473c838.png')`,
           transform: 'scale(1.1)'
         }}
       />

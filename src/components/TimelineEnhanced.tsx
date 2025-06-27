@@ -197,21 +197,21 @@ const TimelineEnhanced = () => {
                     <div className="text-sm text-gray-600 max-w-24">{event.title}</div>
                   </div>
 
-                  {/* Fixed Animated Tooltip */}
+                  {/* Enhanced Tooltip with Better Typography */}
                   <AnimatePresence>
                     {hoveredEvent === index && (
                       <motion.div
-                        className={`absolute ${isEvenIndex ? 'top-full mt-8' : 'bottom-full mb-8'} left-1/2 transform -translate-x-1/2 bg-white p-4 rounded-lg shadow-lg border-2 border-[#BF0A30] max-w-xs z-50`}
+                        className={`absolute ${isEvenIndex ? 'top-full mt-8' : 'bottom-full mb-8'} left-1/2 transform -translate-x-1/2 bg-white p-6 rounded-xl shadow-xl border-2 border-[#BF0A30] w-80 z-50`}
                         initial={{ opacity: 0, y: isEvenIndex ? -10 : 10, scale: 0.9 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: isEvenIndex ? -10 : 10, scale: 0.9 }}
                         transition={{ duration: 0.2 }}
                       >
-                        <div className="text-sm">
-                          <div className="font-semibold text-[#002868] mb-2">{event.title}</div>
-                          <div className="text-gray-600 text-xs">{event.description}</div>
+                        <div className="text-left">
+                          <div className="font-bold text-[#002868] text-lg mb-3 leading-tight">{event.title}</div>
+                          <div className="text-gray-700 text-sm leading-relaxed font-medium">{event.description}</div>
                         </div>
-                        <div className={`absolute ${isEvenIndex ? 'bottom-full' : 'top-full'} left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 ${isEvenIndex ? 'border-b-4 border-transparent border-b-[#BF0A30]' : 'border-t-4 border-transparent border-t-[#BF0A30]'}`}></div>
+                        <div className={`absolute ${isEvenIndex ? 'bottom-full' : 'top-full'} left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[8px] border-r-[8px] ${isEvenIndex ? 'border-b-[8px] border-transparent border-b-[#BF0A30]' : 'border-t-[8px] border-transparent border-t-[#BF0A30]'}`}></div>
                       </motion.div>
                     )}
                   </AnimatePresence>

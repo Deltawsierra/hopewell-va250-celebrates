@@ -16,7 +16,7 @@ const TimelineEnhanced = () => {
   };
 
   return (
-    <section id="timeline" className="py-20 bg-gradient-to-b from-blue-50 to-red-50 relative overflow-hidden">
+    <section id="timeline" className="py-20 bg-gradient-to-b from-blue-50 to-red-50 relative overflow-hidden w-full">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 opacity-5">
         {[...Array(20)].map((_, i) => (
@@ -40,9 +40,9 @@ const TimelineEnhanced = () => {
         ))}
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+      <div className="w-full relative z-10">
         <motion.div 
-          className="text-center mb-16"
+          className="text-center mb-16 px-6"
           initial={{ opacity: 0, y: -50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -56,21 +56,25 @@ const TimelineEnhanced = () => {
           </p>
         </motion.div>
 
-        {/* Desktop Timeline */}
-        <DesktopTimeline
-          hoveredEvent={hoveredEvent}
-          setHoveredEvent={setHoveredEvent}
-          onEventClick={handleEventClick}
-          selectedEvent={selectedEvent}
-          isScrolling={isScrolling}
-          setIsScrolling={setIsScrolling}
-        />
+        {/* Desktop Timeline - Full Width */}
+        <div className="w-full">
+          <DesktopTimeline
+            hoveredEvent={hoveredEvent}
+            setHoveredEvent={setHoveredEvent}
+            onEventClick={handleEventClick}
+            selectedEvent={selectedEvent}
+            isScrolling={isScrolling}
+            setIsScrolling={setIsScrolling}
+          />
+        </div>
 
         {/* Mobile Timeline */}
-        <MobileTimeline
-          onEventClick={handleEventClick}
-          selectedEvent={selectedEvent}
-        />
+        <div className="px-6">
+          <MobileTimeline
+            onEventClick={handleEventClick}
+            selectedEvent={selectedEvent}
+          />
+        </div>
 
         {/* Event Details Modal */}
         <TimelineModal

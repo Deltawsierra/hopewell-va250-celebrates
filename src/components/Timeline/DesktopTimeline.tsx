@@ -67,14 +67,14 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
     <div className="hidden md:block relative overflow-hidden pb-32">
       <div 
         ref={scrollContainerRef}
-        className="overflow-x-auto scrollbar-hide cursor-pointer"
+        className="overflow-x-auto scrollbar-hide cursor-pointer w-full"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
-        <div className="relative min-w-[1600px] py-12">
+        <div className="relative min-w-full py-12 px-8">
           {/* Timeline Events */}
-          <div className="flex justify-between items-start relative px-8">
+          <div className="flex justify-between items-start relative w-full" style={{ minWidth: '1800px' }}>
             {timelineEvents.map((event, index) => (
               <TimelineEvent
                 key={index}
@@ -87,10 +87,10 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
             ))}
           </div>
           
-          {/* Timeline Line - Positioned Below Text */}
+          {/* Timeline Line - Positioned well below all text and icons */}
           <motion.div 
             className="absolute left-8 right-8 h-3 bg-gradient-to-r from-[#002868] via-[#BF0A30] to-[#002868] rounded-full"
-            style={{ top: '180px' }}
+            style={{ top: '260px' }}
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}

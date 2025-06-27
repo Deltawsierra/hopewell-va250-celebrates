@@ -64,7 +64,7 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
   };
 
   return (
-    <div className="hidden md:block relative overflow-hidden pb-32">
+    <div className="hidden md:block relative pb-64">
       <div 
         ref={scrollContainerRef}
         className="overflow-x-auto scrollbar-hide cursor-pointer w-full"

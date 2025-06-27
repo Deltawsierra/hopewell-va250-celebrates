@@ -13,12 +13,13 @@ const TimelineTooltip: React.FC<TimelineTooltipProps> = ({ event, isVisible }) =
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          className="absolute top-full mt-12 left-1/2 transform -translate-x-1/2 bg-white p-6 rounded-xl shadow-2xl border-2 border-[#BF0A30] w-96 z-50"
+          className="absolute left-1/2 bg-white p-6 rounded-xl shadow-2xl border-2 border-[#BF0A30] w-96 z-50"
           initial={{ opacity: 0, y: -20, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -20, scale: 0.9 }}
           transition={{ duration: 0.2 }}
           style={{
+            top: '300px',
             maxWidth: '90vw',
             left: '50%',
             transform: 'translateX(-50%)',

@@ -12,7 +12,7 @@ const Footer = () => {
             <img 
               src="/lovable-uploads/6c8c455d-604e-48d5-9123-eb22a9eb5303.png" 
               alt="Hopewell VA250 Logo" 
-              className="h-16 mb-4"
+              className="h-20 mb-4"
             />
             <p className="text-gray-300 leading-relaxed">
               Celebrating 250 years of American independence and Hopewell's unique place in our nation's history. 

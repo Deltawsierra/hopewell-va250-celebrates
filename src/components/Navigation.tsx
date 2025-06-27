@@ -46,7 +46,7 @@ const Navigation: React.FC<NavigationProps> = ({ onScrollToSection }) => {
             src="/lovable-uploads/6c8c455d-604e-48d5-9123-eb22a9eb5303.png" 
             alt="Hopewell VA250 Logo" 
             className={`transition-all duration-300 ${
-              isScrolled ? 'h-20' : 'h-24'
+              isScrolled ? 'h-24' : 'h-28'
             }`}
           />
         </div>

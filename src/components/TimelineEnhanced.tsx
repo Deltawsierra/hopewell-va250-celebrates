@@ -132,7 +132,7 @@ const TimelineEnhanced = () => {
         </motion.div>
 
         {/* Enhanced Desktop Timeline */}
-        <div className="hidden md:block relative overflow-x-auto">
+        <div className="hidden md:block relative overflow-visible pb-32">
           <motion.div 
             className="absolute top-1/2 left-0 right-0 h-2 bg-gradient-to-r from-[#002868] via-[#BF0A30] to-[#002868] transform -translate-y-1/2 rounded-full"
             initial={{ scaleX: 0 }}
@@ -144,6 +144,8 @@ const TimelineEnhanced = () => {
           <div className="flex justify-between items-center relative min-w-[1000px] py-8">
             {timelineEvents.map((event, index) => {
               const IconComponent = event.icon;
+              const isEvenIndex = index % 2 === 0;
+              
               return (
                 <motion.div
                   key={index}
@@ -195,21 +197,21 @@ const TimelineEnhanced = () => {
                     <div className="text-sm text-gray-600 max-w-24">{event.title}</div>
                   </div>
 
-                  {/* Animated Tooltip */}
+                  {/* Fixed Animated Tooltip */}
                   <AnimatePresence>
                     {hoveredEvent === index && (
                       <motion.div
-                        className="absolute bottom-full mb-8 left-1/2 transform -translate-x-1/2 bg-white p-4 rounded-lg shadow-lg border-2 border-[#BF0A30] max-w-xs z-20"
-                        initial={{ opacity: 0, y: 10, scale: 0.9 }}
+                        className={`absolute ${isEvenIndex ? 'top-full mt-8' : 'bottom-full mb-8'} left-1/2 transform -translate-x-1/2 bg-white p-4 rounded-lg shadow-lg border-2 border-[#BF0A30] max-w-xs z-50`}
+                        initial={{ opacity: 0, y: isEvenIndex ? -10 : 10, scale: 0.9 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 10, scale: 0.9 }}
+                        exit={{ opacity: 0, y: isEvenIndex ? -10 : 10, scale: 0.9 }}
                         transition={{ duration: 0.2 }}
                       >
                         <div className="text-sm">
                           <div className="font-semibold text-[#002868] mb-2">{event.title}</div>
                           <div className="text-gray-600 text-xs">{event.description}</div>
                         </div>
-                        <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-[#BF0A30]"></div>
+                        <div className={`absolute ${isEvenIndex ? 'bottom-full' : 'top-full'} left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 ${isEvenIndex ? 'border-b-4 border-transparent border-b-[#BF0A30]' : 'border-t-4 border-transparent border-t-[#BF0A30]'}`}></div>
                       </motion.div>
                     )}
                   </AnimatePresence>

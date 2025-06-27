@@ -16,7 +16,7 @@ const EventCalendarEnhanced = () => {
       location: 'Weston Manor',
       type: 'history',
       description: 'Grand opening celebration with tours, reenactments, live music, and colonial demonstrations at the historic Georgian plantation house.',
-      image: '/hopewell-uploads/4ef163f0-80dd-406a-9417-18f599ad2fb4.png'
+      image: '/lovable-uploads/4ef163f0-80dd-406a-9417-18f599ad2fb4.png'
     },
     {
       id: 2,
@@ -26,7 +26,7 @@ const EventCalendarEnhanced = () => {
       location: 'City Point Waterfront',
       type: 'history',
       description: 'Monthly guided walking tour exploring 400+ years of history at the confluence of the James and Appomattox rivers.',
-      image: '/hopewell-uploads/610d8137-4117-41b8-9ccc-545384c32298.png'
+      image: '/lovable-uploads/610d8137-4117-41b8-9ccc-545384c32298.png'
     },
     {
       id: 3,
@@ -36,7 +36,7 @@ const EventCalendarEnhanced = () => {
       location: 'Beacon Theatre',
       type: 'family',
       description: 'Enjoy live music, local food, and free tours of the historic Art Deco theatre with family-friendly activities.',
-      image: '/hopewell-uploads/344b973c-e994-4ca6-9ad0-c656d473c838.png'
+      image: '/lovable-uploads/344b973c-e994-4ca6-9ad0-c656d473c838.png'
     },
     {
       id: 4,
@@ -46,7 +46,7 @@ const EventCalendarEnhanced = () => {
       location: 'Appomattox Manor',
       type: 'history',
       description: 'Experience Grant\'s headquarters come alive with authentic Civil War demonstrations and historical interpretation.',
-      image: '/hopewell-uploads/3d6ba77e-c74b-47fe-919e-0a1a2a29d809.png'
+      image: '/lovable-uploads/3d6ba77e-c74b-47fe-919e-0a1a2a29d809.png'
     },
     {
       id: 5,
@@ -56,7 +56,7 @@ const EventCalendarEnhanced = () => {
       location: 'Downtown Hopewell',
       type: 'community',
       description: 'Celebrate America\'s 250th with local vendors, live music, family activities, and exhibits showcasing Hopewell\'s 400+ year history.',
-      image: '/hopewell-uploads/bcd6728f-2e29-4995-9579-b5114652ca3c.png'
+      image: '/lovable-uploads/bcd6728f-2e29-4995-9579-b5114652ca3c.png'
     },
     {
       id: 6,
@@ -66,7 +66,7 @@ const EventCalendarEnhanced = () => {
       location: 'Historic Downtown',
       type: 'history',
       description: 'Explore Hopewell\'s transformation from colonial tobacco port to 20th-century industrial powerhouse.',
-      image: '/hopewell-uploads/bcd6728f-2e29-4995-9579-b5114652ca3c.png'
+      image: '/lovable-uploads/bcd6728f-2e29-4995-9579-b5114652ca3c.png'
     }
   ];
 
@@ -96,6 +96,15 @@ const EventCalendarEnhanced = () => {
 
   return (
     <section id="events" className="py-20 bg-white relative overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center"
+        style={{
+          backgroundImage: `url('/lovable-uploads/344b973c-e994-4ca6-9ad0-c656d473c838.png')`,
+        }}
+      />
+      <div className="absolute inset-0 bg-white bg-opacity-95" />
+
       {/* Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-[linear-gradient(45deg,_#002868_25%,_transparent_25%,_transparent_75%,_#002868_75%,_#002868),_linear-gradient(45deg,_#002868_25%,_transparent_25%,_transparent_75%,_#002868_75%,_#002868)] bg-[length:20px_20px] bg-[position:0_0,_10px_10px]"></div>

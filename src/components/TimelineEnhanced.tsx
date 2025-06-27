@@ -7,7 +7,7 @@ const TimelineEnhanced = () => {
   const [selectedEvent, setSelectedEvent] = useState<number | null>(null);
   const [hoveredEvent, setHoveredEvent] = useState<number | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [isScrolling, setIsScrolling] = useState(false);
+  const [isScrolling, setIsScrolling] = useState<'left' | 'right' | false>(false);
 
   const timelineEvents = [
     {
@@ -182,7 +182,7 @@ const TimelineEnhanced = () => {
             onMouseLeave={handleMouseLeave}
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
-            <div className="relative min-w-[1400px] py-12">
+            <div className="relative min-w-[1600px] py-12">
               {/* Timeline Events */}
               <div className="flex justify-between items-start relative px-8">
                 {timelineEvents.map((event, index) => {
@@ -192,7 +192,7 @@ const TimelineEnhanced = () => {
                     <motion.div
                       key={index}
                       className="flex flex-col items-center cursor-pointer group relative"
-                      style={{ width: '120px' }}
+                      style={{ width: '140px' }}
                       initial={{ opacity: 0, y: 50 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
@@ -203,7 +203,7 @@ const TimelineEnhanced = () => {
                     >
                       {/* Event Icon */}
                       <motion.div 
-                        className={`w-20 h-20 ${event.color} rounded-full flex items-center justify-center mb-4 shadow-lg relative overflow-hidden z-20`}
+                        className={`w-24 h-24 ${event.color} rounded-full flex items-center justify-center mb-6 shadow-lg relative overflow-hidden z-20`}
                         whileHover={{ 
                           scale: 1.1,
                           boxShadow: "0 10px 30px rgba(0, 40, 104, 0.3)",
@@ -217,7 +217,7 @@ const TimelineEnhanced = () => {
                         } : {}}
                         transition={{ duration: 0.3 }}
                       >
-                        <IconComponent className="w-10 h-10 text-white" />
+                        <IconComponent className="w-12 h-12 text-white" />
                         
                         {/* Glowing effect */}
                         <motion.div
@@ -232,21 +232,21 @@ const TimelineEnhanced = () => {
                       </motion.div>
                       
                       {/* Event Text */}
-                      <div className="text-center mb-6 relative z-10">
+                      <div className="text-center mb-8 relative z-10">
                         <motion.div 
-                          className="font-bold text-[#002868] text-lg mb-1"
+                          className="font-bold text-[#002868] text-xl mb-2"
                           animate={hoveredEvent === index ? { scale: 1.05 } : { scale: 1 }}
                         >
                           {event.year}
                         </motion.div>
-                        <div className="text-sm text-gray-600 font-medium leading-tight max-w-24">{event.title}</div>
+                        <div className="text-sm text-gray-600 font-medium leading-tight max-w-28">{event.title}</div>
                       </div>
 
                       {/* Enhanced Tooltip with Proper Positioning */}
                       <AnimatePresence>
                         {hoveredEvent === index && (
                           <motion.div
-                            className="absolute top-full mt-4 left-1/2 transform -translate-x-1/2 bg-white p-6 rounded-xl shadow-2xl border-2 border-[#BF0A30] w-96 z-50"
+                            className="absolute top-full mt-8 left-1/2 transform -translate-x-1/2 bg-white p-6 rounded-xl shadow-2xl border-2 border-[#BF0A30] w-96 z-50"
                             initial={{ opacity: 0, y: -20, scale: 0.9 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             exit={{ opacity: 0, y: -20, scale: 0.9 }}
@@ -272,7 +272,7 @@ const TimelineEnhanced = () => {
               {/* Timeline Line - Positioned Below Text */}
               <motion.div 
                 className="absolute left-8 right-8 h-3 bg-gradient-to-r from-[#002868] via-[#BF0A30] to-[#002868] rounded-full"
-                style={{ top: '140px' }}
+                style={{ top: '180px' }}
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 viewport={{ once: true }}
@@ -372,7 +372,8 @@ const TimelineEnhanced = () => {
         </AnimatePresence>
       </div>
 
-      <style jsx>{`
+      <style>
+        {`
         .scrollbar-hide::-webkit-scrollbar {
           display: none;
         }
@@ -380,7 +381,8 @@ const TimelineEnhanced = () => {
           -ms-overflow-style: none;
           scrollbar-width: none;
         }
-      `}</style>
+        `}
+      </style>
     </section>
   );
 };

@@ -131,93 +131,96 @@ const TimelineEnhanced = () => {
           </p>
         </motion.div>
 
-        {/* Enhanced Desktop Timeline */}
-        <div className="hidden md:block relative overflow-visible pb-32">
-          <motion.div 
-            className="absolute top-1/2 left-0 right-0 h-2 bg-gradient-to-r from-[#002868] via-[#BF0A30] to-[#002868] transform -translate-y-1/2 rounded-full"
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 2 }}
-          />
-          
-          <div className="flex justify-between items-center relative min-w-[1000px] py-8">
-            {timelineEvents.map((event, index) => {
-              const IconComponent = event.icon;
-              const isEvenIndex = index % 2 === 0;
-              
-              return (
-                <motion.div
-                  key={index}
-                  className="flex flex-col items-center cursor-pointer group relative"
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  onHoverStart={() => setHoveredEvent(index)}
-                  onHoverEnd={() => setHoveredEvent(null)}
-                  onClick={() => setSelectedEvent(selectedEvent === index ? null : index)}
-                >
-                  <motion.div 
-                    className={`w-16 h-16 ${event.color} rounded-full flex items-center justify-center mb-4 shadow-lg relative overflow-hidden`}
-                    whileHover={{ 
-                      scale: 1.2,
-                      boxShadow: "0 10px 30px rgba(0, 40, 104, 0.3)",
-                    }}
-                    animate={hoveredEvent === index ? {
-                      boxShadow: [
-                        "0 0 20px rgba(191, 10, 48, 0.5)",
-                        "0 0 40px rgba(191, 10, 48, 0.3)",
-                        "0 0 20px rgba(191, 10, 48, 0.5)",
-                      ],
-                    } : {}}
-                    transition={{ duration: 0.3 }}
+        {/* Enhanced Desktop Timeline with Fixed Positioning */}
+        <div className="hidden md:block relative overflow-x-auto overflow-y-visible pb-20">
+          <div className="relative min-w-[1200px] mx-auto">
+            <motion.div 
+              className="absolute top-1/2 left-0 right-0 h-2 bg-gradient-to-r from-[#002868] via-[#BF0A30] to-[#002868] transform -translate-y-1/2 rounded-full"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 2 }}
+            />
+            
+            <div className="flex justify-between items-center relative py-8">
+              {timelineEvents.map((event, index) => {
+                const IconComponent = event.icon;
+                const isEvenIndex = index % 2 === 0;
+                
+                return (
+                  <motion.div
+                    key={index}
+                    className="flex flex-col items-center cursor-pointer group relative"
+                    style={{ flex: '0 0 auto', width: '120px' }}
+                    initial={{ opacity: 0, y: 50 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    onHoverStart={() => setHoveredEvent(index)}
+                    onHoverEnd={() => setHoveredEvent(null)}
+                    onClick={() => setSelectedEvent(selectedEvent === index ? null : index)}
                   >
-                    <IconComponent className="w-8 h-8 text-white" />
-                    
-                    {/* Glowing effect */}
-                    <motion.div
-                      className="absolute inset-0 bg-white rounded-full"
-                      initial={{ scale: 0, opacity: 0 }}
-                      animate={hoveredEvent === index ? { 
-                        scale: [0, 1.5], 
-                        opacity: [0.3, 0] 
-                      } : {}}
-                      transition={{ duration: 0.6 }}
-                    />
-                  </motion.div>
-                  
-                  <div className="text-center">
                     <motion.div 
-                      className="font-bold text-[#002868] text-lg"
-                      animate={hoveredEvent === index ? { scale: 1.1 } : { scale: 1 }}
+                      className={`w-16 h-16 ${event.color} rounded-full flex items-center justify-center mb-4 shadow-lg relative overflow-hidden`}
+                      whileHover={{ 
+                        scale: 1.2,
+                        boxShadow: "0 10px 30px rgba(0, 40, 104, 0.3)",
+                      }}
+                      animate={hoveredEvent === index ? {
+                        boxShadow: [
+                          "0 0 20px rgba(191, 10, 48, 0.5)",
+                          "0 0 40px rgba(191, 10, 48, 0.3)",
+                          "0 0 20px rgba(191, 10, 48, 0.5)",
+                        ],
+                      } : {}}
+                      transition={{ duration: 0.3 }}
                     >
-                      {event.year}
-                    </motion.div>
-                    <div className="text-sm text-gray-600 max-w-24">{event.title}</div>
-                  </div>
-
-                  {/* Enhanced Tooltip with Better Typography */}
-                  <AnimatePresence>
-                    {hoveredEvent === index && (
+                      <IconComponent className="w-8 h-8 text-white" />
+                      
+                      {/* Glowing effect */}
                       <motion.div
-                        className={`absolute ${isEvenIndex ? 'top-full mt-8' : 'bottom-full mb-8'} left-1/2 transform -translate-x-1/2 bg-white p-6 rounded-xl shadow-xl border-2 border-[#BF0A30] w-80 z-50`}
-                        initial={{ opacity: 0, y: isEvenIndex ? -10 : 10, scale: 0.9 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: isEvenIndex ? -10 : 10, scale: 0.9 }}
-                        transition={{ duration: 0.2 }}
+                        className="absolute inset-0 bg-white rounded-full"
+                        initial={{ scale: 0, opacity: 0 }}
+                        animate={hoveredEvent === index ? { 
+                          scale: [0, 1.5], 
+                          opacity: [0.3, 0] 
+                        } : {}}
+                        transition={{ duration: 0.6 }}
+                      />
+                    </motion.div>
+                    
+                    <div className="text-center">
+                      <motion.div 
+                        className="font-bold text-[#002868] text-lg"
+                        animate={hoveredEvent === index ? { scale: 1.1 } : { scale: 1 }}
                       >
-                        <div className="text-left">
-                          <div className="font-bold text-[#002868] text-lg mb-3 leading-tight">{event.title}</div>
-                          <div className="text-gray-700 text-sm leading-relaxed font-medium">{event.description}</div>
-                        </div>
-                        <div className={`absolute ${isEvenIndex ? 'bottom-full' : 'top-full'} left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[8px] border-r-[8px] ${isEvenIndex ? 'border-b-[8px] border-transparent border-b-[#BF0A30]' : 'border-t-[8px] border-transparent border-t-[#BF0A30]'}`}></div>
+                        {event.year}
                       </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              );
-            })}
+                      <div className="text-sm text-gray-600 max-w-24 leading-tight">{event.title}</div>
+                    </div>
+
+                    {/* Fixed Tooltip Positioning */}
+                    <AnimatePresence>
+                      {hoveredEvent === index && (
+                        <motion.div
+                          className={`absolute ${isEvenIndex ? 'top-full mt-12' : 'bottom-full mb-12'} left-1/2 transform -translate-x-1/2 bg-white p-6 rounded-xl shadow-xl border-2 border-[#BF0A30] w-80 z-50`}
+                          initial={{ opacity: 0, y: isEvenIndex ? -10 : 10, scale: 0.9 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: isEvenIndex ? -10 : 10, scale: 0.9 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <div className="text-left">
+                            <div className="font-bold text-[#002868] text-lg mb-3 leading-tight">{event.title}</div>
+                            <div className="text-gray-700 text-sm leading-relaxed font-medium">{event.description}</div>
+                          </div>
+                          <div className={`absolute ${isEvenIndex ? 'bottom-full' : 'top-full'} left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[8px] border-r-[8px] ${isEvenIndex ? 'border-b-[8px] border-transparent border-b-[#BF0A30]' : 'border-t-[8px] border-transparent border-t-[#BF0A30]'}`}></div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                );
+              })}
+            </div>
           </div>
         </div>
 

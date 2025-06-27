@@ -1,11 +1,13 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Calendar, Star, Home, Flag, Factory, Ship } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const TimelineEnhanced = () => {
   const [selectedEvent, setSelectedEvent] = useState<number | null>(null);
   const [hoveredEvent, setHoveredEvent] = useState<number | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [isScrolling, setIsScrolling] = useState(false);
 
   const timelineEvents = [
     {
@@ -90,6 +92,46 @@ const TimelineEnhanced = () => {
     }
   ];
 
+  // Auto-scroll functionality
+  useEffect(() => {
+    let scrollInterval: NodeJS.Timeout;
+    
+    if (isScrolling && scrollContainerRef.current) {
+      scrollInterval = setInterval(() => {
+        if (scrollContainerRef.current) {
+          const container = scrollContainerRef.current;
+          const scrollAmount = isScrolling === 'left' ? -2 : 2;
+          container.scrollLeft += scrollAmount;
+        }
+      }, 16); // ~60fps
+    }
+
+    return () => {
+      if (scrollInterval) {
+        clearInterval(scrollInterval);
+      }
+    };
+  }, [isScrolling]);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const container = e.currentTarget;
+    const rect = container.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const threshold = 100; // pixels from edge to trigger scroll
+
+    if (x < threshold) {
+      setIsScrolling('left');
+    } else if (x > rect.width - threshold) {
+      setIsScrolling('right');
+    } else {
+      setIsScrolling(false);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsScrolling(false);
+  };
+
   return (
     <section id="timeline" className="py-20 bg-gradient-to-b from-blue-50 to-red-50 relative overflow-hidden">
       {/* Animated Background Elements */}
@@ -132,92 +174,111 @@ const TimelineEnhanced = () => {
         </motion.div>
 
         {/* Enhanced Desktop Timeline */}
-        <div className="hidden md:block relative overflow-visible pb-32">
-          <motion.div 
-            className="absolute top-1/2 left-0 right-0 h-2 bg-gradient-to-r from-[#002868] via-[#BF0A30] to-[#002868] transform -translate-y-1/2 rounded-full"
-            initial={{ scaleX: 0 }}
-            whileInView={{ scaleX: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 2 }}
-          />
-          
-          <div className="flex justify-between items-center relative min-w-[1000px] py-8">
-            {timelineEvents.map((event, index) => {
-              const IconComponent = event.icon;
-              const isEvenIndex = index % 2 === 0;
-              
-              return (
-                <motion.div
-                  key={index}
-                  className="flex flex-col items-center cursor-pointer group relative"
-                  initial={{ opacity: 0, y: 50 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  onHoverStart={() => setHoveredEvent(index)}
-                  onHoverEnd={() => setHoveredEvent(null)}
-                  onClick={() => setSelectedEvent(selectedEvent === index ? null : index)}
-                >
-                  <motion.div 
-                    className={`w-16 h-16 ${event.color} rounded-full flex items-center justify-center mb-4 shadow-lg relative overflow-hidden`}
-                    whileHover={{ 
-                      scale: 1.2,
-                      boxShadow: "0 10px 30px rgba(0, 40, 104, 0.3)",
-                    }}
-                    animate={hoveredEvent === index ? {
-                      boxShadow: [
-                        "0 0 20px rgba(191, 10, 48, 0.5)",
-                        "0 0 40px rgba(191, 10, 48, 0.3)",
-                        "0 0 20px rgba(191, 10, 48, 0.5)",
-                      ],
-                    } : {}}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <IconComponent className="w-8 h-8 text-white" />
-                    
-                    {/* Glowing effect */}
-                    <motion.div
-                      className="absolute inset-0 bg-white rounded-full"
-                      initial={{ scale: 0, opacity: 0 }}
-                      animate={hoveredEvent === index ? { 
-                        scale: [0, 1.5], 
-                        opacity: [0.3, 0] 
-                      } : {}}
-                      transition={{ duration: 0.6 }}
-                    />
-                  </motion.div>
+        <div className="hidden md:block relative overflow-hidden pb-32">
+          <div 
+            ref={scrollContainerRef}
+            className="overflow-x-auto scrollbar-hide cursor-pointer"
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          >
+            <div className="relative min-w-[1400px] py-12">
+              {/* Timeline Events */}
+              <div className="flex justify-between items-start relative px-8">
+                {timelineEvents.map((event, index) => {
+                  const IconComponent = event.icon;
                   
-                  <div className="text-center">
-                    <motion.div 
-                      className="font-bold text-[#002868] text-lg"
-                      animate={hoveredEvent === index ? { scale: 1.1 } : { scale: 1 }}
+                  return (
+                    <motion.div
+                      key={index}
+                      className="flex flex-col items-center cursor-pointer group relative"
+                      style={{ width: '120px' }}
+                      initial={{ opacity: 0, y: 50 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                      onHoverStart={() => setHoveredEvent(index)}
+                      onHoverEnd={() => setHoveredEvent(null)}
+                      onClick={() => setSelectedEvent(selectedEvent === index ? null : index)}
                     >
-                      {event.year}
-                    </motion.div>
-                    <div className="text-sm text-gray-600 max-w-24">{event.title}</div>
-                  </div>
-
-                  {/* Enhanced Tooltip with Better Typography */}
-                  <AnimatePresence>
-                    {hoveredEvent === index && (
-                      <motion.div
-                        className={`absolute ${isEvenIndex ? 'top-full mt-8' : 'bottom-full mb-8'} left-1/2 transform -translate-x-1/2 bg-white p-6 rounded-xl shadow-xl border-2 border-[#BF0A30] w-80 z-50`}
-                        initial={{ opacity: 0, y: isEvenIndex ? -10 : 10, scale: 0.9 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: isEvenIndex ? -10 : 10, scale: 0.9 }}
-                        transition={{ duration: 0.2 }}
+                      {/* Event Icon */}
+                      <motion.div 
+                        className={`w-20 h-20 ${event.color} rounded-full flex items-center justify-center mb-4 shadow-lg relative overflow-hidden z-20`}
+                        whileHover={{ 
+                          scale: 1.1,
+                          boxShadow: "0 10px 30px rgba(0, 40, 104, 0.3)",
+                        }}
+                        animate={hoveredEvent === index ? {
+                          boxShadow: [
+                            "0 0 20px rgba(191, 10, 48, 0.5)",
+                            "0 0 40px rgba(191, 10, 48, 0.3)",
+                            "0 0 20px rgba(191, 10, 48, 0.5)",
+                          ],
+                        } : {}}
+                        transition={{ duration: 0.3 }}
                       >
-                        <div className="text-left">
-                          <div className="font-bold text-[#002868] text-lg mb-3 leading-tight">{event.title}</div>
-                          <div className="text-gray-700 text-sm leading-relaxed font-medium">{event.description}</div>
-                        </div>
-                        <div className={`absolute ${isEvenIndex ? 'bottom-full' : 'top-full'} left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[8px] border-r-[8px] ${isEvenIndex ? 'border-b-[8px] border-transparent border-b-[#BF0A30]' : 'border-t-[8px] border-transparent border-t-[#BF0A30]'}`}></div>
+                        <IconComponent className="w-10 h-10 text-white" />
+                        
+                        {/* Glowing effect */}
+                        <motion.div
+                          className="absolute inset-0 bg-white rounded-full"
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={hoveredEvent === index ? { 
+                            scale: [0, 1.5], 
+                            opacity: [0.3, 0] 
+                          } : {}}
+                          transition={{ duration: 0.6 }}
+                        />
                       </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
-              );
-            })}
+                      
+                      {/* Event Text */}
+                      <div className="text-center mb-6 relative z-10">
+                        <motion.div 
+                          className="font-bold text-[#002868] text-lg mb-1"
+                          animate={hoveredEvent === index ? { scale: 1.05 } : { scale: 1 }}
+                        >
+                          {event.year}
+                        </motion.div>
+                        <div className="text-sm text-gray-600 font-medium leading-tight max-w-24">{event.title}</div>
+                      </div>
+
+                      {/* Enhanced Tooltip with Proper Positioning */}
+                      <AnimatePresence>
+                        {hoveredEvent === index && (
+                          <motion.div
+                            className="absolute top-full mt-4 left-1/2 transform -translate-x-1/2 bg-white p-6 rounded-xl shadow-2xl border-2 border-[#BF0A30] w-96 z-50"
+                            initial={{ opacity: 0, y: -20, scale: 0.9 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            exit={{ opacity: 0, y: -20, scale: 0.9 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <div className="text-left">
+                              <div className="font-bold text-[#002868] text-xl mb-3 leading-tight">{event.title}</div>
+                              <div className="text-gray-700 text-base leading-relaxed font-medium mb-4">{event.description}</div>
+                              <div className="bg-blue-50 p-3 rounded-lg">
+                                <div className="text-[#002868] font-semibold text-sm leading-relaxed">{event.trivia}</div>
+                              </div>
+                            </div>
+                            {/* Arrow pointing to event */}
+                            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-[12px] border-r-[12px] border-b-[12px] border-transparent border-b-[#BF0A30]"></div>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    </motion.div>
+                  );
+                })}
+              </div>
+              
+              {/* Timeline Line - Positioned Below Text */}
+              <motion.div 
+                className="absolute left-8 right-8 h-3 bg-gradient-to-r from-[#002868] via-[#BF0A30] to-[#002868] rounded-full"
+                style={{ top: '140px' }}
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 2 }}
+              />
+            </div>
           </div>
         </div>
 
@@ -310,6 +371,16 @@ const TimelineEnhanced = () => {
           )}
         </AnimatePresence>
       </div>
+
+      <style jsx>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </section>
   );
 };

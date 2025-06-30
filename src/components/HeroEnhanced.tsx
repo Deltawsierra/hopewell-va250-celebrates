@@ -79,7 +79,7 @@ const HeroEnhanced: React.FC<HeroEnhancedProps> = ({ onScrollToSection }) => {
       <div className="relative z-20 text-center px-6 max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 1.5, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
         >
           <motion.h1 

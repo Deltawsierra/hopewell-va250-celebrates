@@ -9,9 +9,7 @@ export default function HeroFlagGifOverlay() {
       style={{
         opacity: 0.5,
         mixBlendMode: 'screen',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        zIndex: 20,
       }}
     >
       <img

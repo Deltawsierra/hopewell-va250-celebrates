@@ -1,32 +1,21 @@
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { Vortex } from '../ui/vortex';
 
 const AnimatedBackground = () => {
   return (
-    <div className="absolute inset-0 opacity-3">
-      {[...Array(15)].map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute w-2 h-2"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-          }}
-          animate={{
-            rotate: [0, 360],
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 12 + Math.random() * 8,
-            repeat: Infinity,
-            delay: Math.random() * 4,
-            ease: "linear",
-          }}
-        >
-          <div className="w-full h-full bg-[#002868] transform rotate-45"></div>
-        </motion.div>
-      ))}
+    <div className="absolute inset-0 opacity-20">
+      <Vortex
+        backgroundColor="transparent"
+        rangeY={800}
+        particleCount={300}
+        baseHue={220}
+        rangeSpeed={2}
+        baseSpeed={0.5}
+        baseRadius={0.8}
+        rangeRadius={1.5}
+        className="w-full h-full"
+      />
     </div>
   );
 };

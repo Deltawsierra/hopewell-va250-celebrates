@@ -1,4 +1,3 @@
-
 import { cn } from "@/lib/utils";
 import React, { useEffect, useRef } from "react";
 import { createNoise3D } from "simplex-noise";
@@ -89,9 +88,10 @@ export const Vortex = (props: VortexProps) => {
 
     let x, y, vx, vy, life, ttl, speed, radius, hue;
 
-    // Spread particles across the entire canvas area
+    // Spread particles across the entire canvas area with extended vertical range
     x = rand(canvas.width);
-    y = rand(canvas.height);
+    // Extend the vertical range to cover from Events section to Footer
+    y = rand(canvas.height + 400); // Extra vertical space to cover the extended range
     vx = 0;
     vy = 0;
     life = 0;
@@ -202,7 +202,8 @@ export const Vortex = (props: VortexProps) => {
   };
 
   const checkBounds = (x: number, y: number, canvas: HTMLCanvasElement) => {
-    return x > canvas.width || x < 0 || y > canvas.height || y < 0;
+    // Extended bounds to allow particles to move beyond the standard canvas area
+    return x > canvas.width + 100 || x < -100 || y > canvas.height + 400 || y < -100;
   };
 
   const resize = (
@@ -212,7 +213,8 @@ export const Vortex = (props: VortexProps) => {
     const { innerWidth, innerHeight } = window;
 
     canvas.width = innerWidth;
-    canvas.height = innerHeight;
+    // Extend canvas height to cover the expanded vertical range
+    canvas.height = innerHeight + 400;
 
     center[0] = 0.5 * canvas.width;
     center[1] = 0.5 * canvas.height;
@@ -271,7 +273,8 @@ export const Vortex = (props: VortexProps) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         ref={containerRef}
-        className="absolute inset-0 z-0 flex h-full w-full items-center justify-center bg-transparent"
+        className="absolute inset-0 z-0 flex h-full w-full items-center justify-center bg-transparent overflow-hidden"
+        style={{ height: 'calc(100% + 400px)' }}
       >
         <canvas ref={canvasRef}></canvas>
       </motion.div>

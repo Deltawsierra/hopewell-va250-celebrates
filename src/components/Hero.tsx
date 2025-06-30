@@ -16,7 +16,7 @@ const Hero: React.FC<HeroProps> = ({ onScrollToSection }) => {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image with Overlay */}
+      {/* Background Image - z-0 */}
       <div 
         className="absolute inset-0 bg-cover bg-center z-0"
         style={{
@@ -24,12 +24,14 @@ const Hero: React.FC<HeroProps> = ({ onScrollToSection }) => {
           transform: 'scale(1.1)'
         }}
       />
+      
+      {/* Color Overlay - z-10 */}
       <div className="absolute inset-0 bg-[#002868] bg-opacity-70 z-10" />
       
-      {/* Flag GIF Overlay - Moved directly after background elements */}
+      {/* Flag GIF Overlay - z-20 */}
       <HeroFlagGifOverlay />
       
-      {/* Patriotic Stars Pattern */}
+      {/* Patriotic Stars Pattern - z-30 */}
       <div className="absolute inset-0 opacity-10 z-30">
         {[...Array(20)].map((_, i) => (
           <div
@@ -46,7 +48,7 @@ const Hero: React.FC<HeroProps> = ({ onScrollToSection }) => {
         ))}
       </div>
 
-      {/* Content */}
+      {/* Main Content - z-40 */}
       <div className="relative z-40 text-center px-6 max-w-4xl mx-auto">
         <div className={`transition-all duration-1000 transform ${
           isLoaded 
@@ -74,7 +76,7 @@ const Hero: React.FC<HeroProps> = ({ onScrollToSection }) => {
         </div>
       </div>
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator - z-50 */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-50">
         <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
           <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse" />

@@ -5,6 +5,7 @@ import { timelineEvents } from '../data/timelineEvents';
 import DesktopTimeline from './Timeline/DesktopTimeline';
 import MobileTimeline from './Timeline/MobileTimeline';
 import TimelineModal from './Timeline/TimelineModal';
+import ErrorBoundary from './ErrorBoundary';
 
 const TimelineEnhanced = () => {
   const [selectedEvent, setSelectedEvent] = useState<number | null>(null);
@@ -55,30 +56,40 @@ const TimelineEnhanced = () => {
           </p>
         </motion.div>
 
-        {/* Desktop Timeline - Full Width */}
-        <div className="w-full">
-          <DesktopTimeline
-            hoveredEvent={hoveredEvent}
-            setHoveredEvent={setHoveredEvent}
-            onEventClick={handleEventClick}
-            selectedEvent={selectedEvent}
-          />
-        </div>
+        {/* Desktop Timeline - Wrapped in Error Boundary */}
+        <ErrorBoundary fallback={
+          <div className="text-center py-8">
+            <p className="text-gray-600">Timeline temporarily unavailable. Please refresh the page.</p>
+          </div>
+        }>
+          <div className="w-full">
+            <DesktopTimeline
+              hoveredEvent={hoveredEvent}
+              setHoveredEvent={setHoveredEvent}
+              onEventClick={handleEventClick}
+              selectedEvent={selectedEvent}
+            />
+          </div>
+        </ErrorBoundary>
 
-        {/* Mobile Timeline */}
-        <div className="px-6">
-          <MobileTimeline
-            onEventClick={handleEventClick}
-            selectedEvent={selectedEvent}
-          />
-        </div>
+        {/* Mobile Timeline - Wrapped in Error Boundary */}
+        <ErrorBoundary>
+          <div className="px-6">
+            <MobileTimeline
+              onEventClick={handleEventClick}
+              selectedEvent={selectedEvent}
+            />
+          </div>
+        </ErrorBoundary>
 
-        {/* Event Details Modal */}
-        <TimelineModal
-          event={selectedEvent !== null ? timelineEvents[selectedEvent] : null}
-          isOpen={selectedEvent !== null}
-          onClose={() => setSelectedEvent(null)}
-        />
+        {/* Event Details Modal - Wrapped in Error Boundary */}
+        <ErrorBoundary>
+          <TimelineModal
+            event={selectedEvent !== null ? timelineEvents[selectedEvent] : null}
+            isOpen={selectedEvent !== null}
+            onClose={() => setSelectedEvent(null)}
+          />
+        </ErrorBoundary>
       </div>
     </section>
   );

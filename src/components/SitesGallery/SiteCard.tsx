@@ -28,6 +28,7 @@ const SiteCard = ({ site, isHovered, onHoverStart, onHoverEnd }: SiteCardProps) 
             src={site.image}
             alt={`${site.name}, historic landmark in Hopewell, Virginia`}
             className="w-full h-64 object-cover"
+            loading="lazy"
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
           />

@@ -7,6 +7,8 @@ export const useTimelineScroll = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [containerWidth, setContainerWidth] = useState(0);
+  const [totalWidth, setTotalWidth] = useState(0);
 
   const updateScrollState = useCallback(() => {
     if (containerRef.current) {
@@ -19,6 +21,10 @@ export const useTimelineScroll = () => {
       
       setCanScrollLeft(scrollLeft > 1);
       setCanScrollRight(scrollLeft < maxScroll - 1);
+      
+      // Update dimensions for progress calculation
+      setContainerWidth(container.clientWidth);
+      setTotalWidth(container.scrollWidth);
     }
   }, []);
 
@@ -52,6 +58,8 @@ export const useTimelineScroll = () => {
     scrollProgress,
     canScrollLeft,
     canScrollRight,
+    containerWidth,
+    totalWidth,
     updateScrollState
   };
 };

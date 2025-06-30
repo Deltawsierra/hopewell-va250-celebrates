@@ -5,9 +5,21 @@ import { motion } from 'framer-motion';
 interface ProgressLineProps {
   scrollProgress: number;
   isScrolling: 'left' | 'right' | false;
+  containerWidth?: number;
+  totalWidth?: number;
 }
 
-const ProgressLine: React.FC<ProgressLineProps> = ({ scrollProgress, isScrolling }) => {
+const ProgressLine: React.FC<ProgressLineProps> = ({ 
+  scrollProgress, 
+  isScrolling, 
+  containerWidth = 0, 
+  totalWidth = 0 
+}) => {
+  // Calculate the actual progress based on the full timeline width
+  const progressWidth = totalWidth > 0 && containerWidth > 0 
+    ? Math.min((containerWidth / totalWidth) + (scrollProgress * (1 - containerWidth / totalWidth)), 1) * 100
+    : Math.max(scrollProgress * 100, 0);
+
   return (
     <>
       {/* Background Timeline Line */}
@@ -21,7 +33,7 @@ const ProgressLine: React.FC<ProgressLineProps> = ({ scrollProgress, isScrolling
         className="absolute left-8 h-3 bg-gradient-to-r from-[#002868] via-[#BF0A30] to-[#002868] rounded-full pointer-events-none shadow-lg"
         style={{ 
           top: '280px',
-          width: `${Math.max(scrollProgress * 100, 0)}%`
+          width: `${progressWidth}%`
         }}
         animate={{
           boxShadow: isScrolling 

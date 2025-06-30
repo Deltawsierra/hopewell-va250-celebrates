@@ -30,6 +30,8 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
     scrollProgress,
     canScrollLeft,
     canScrollRight,
+    containerWidth,
+    totalWidth,
     updateScrollState
   } = useTimelineScroll();
 
@@ -94,6 +96,8 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
           <ProgressLine
             scrollProgress={scrollProgress}
             isScrolling={isScrolling}
+            containerWidth={containerWidth}
+            totalWidth={totalWidth}
           />
         </div>
       </div>

@@ -16,7 +16,7 @@ const TimelineEnhanced = () => {
   };
 
   return (
-    <section id="timeline" className="py-20 bg-gradient-to-b from-blue-50 via-red-50 to-red-100 relative overflow-hidden w-full">
+    <section id="timeline" className="py-20 pb-8 bg-gradient-to-b from-blue-50 via-red-50 to-red-100 relative overflow-hidden w-full">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 opacity-5">
         {[...Array(20)].map((_, i) => (

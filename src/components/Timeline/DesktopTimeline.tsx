@@ -17,6 +17,9 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
   selectedEvent
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
 
   // Enable mouse wheel horizontal scrolling when hovering timeline
   useEffect(() => {
@@ -35,6 +38,34 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
     el.addEventListener('wheel', onWheel, { passive: false });
     return () => el.removeEventListener('wheel', onWheel);
   }, []);
+
+  // Handle mouse drag scrolling
+  const handleMouseDown = (e: React.MouseEvent) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    
+    setIsDragging(true);
+    setStartX(e.pageX - el.offsetLeft);
+    setScrollLeft(el.scrollLeft);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !scrollRef.current) return;
+    
+    e.preventDefault();
+    const el = scrollRef.current;
+    const x = e.pageX - el.offsetLeft;
+    const walk = (x - startX) * 2; // Multiply by 2 for faster scrolling
+    el.scrollLeft = scrollLeft - walk;
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+  };
 
   return (
     <div className="hidden md:block relative pb-16">
@@ -55,9 +86,13 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
             scrollbarWidth: 'none', 
             msOverflowStyle: 'none',
             scrollBehavior: 'smooth',
-            cursor: 'grab'
+            cursor: isDragging ? 'grabbing' : 'grab'
           }}
           tabIndex={0}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
         >
           <div className="relative py-12 select-none">
             {/* Timeline Events */}

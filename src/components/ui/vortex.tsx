@@ -1,4 +1,3 @@
-
 import { cn } from "@/lib/utils";
 import React, { useEffect, useRef } from "react";
 import { createNoise3D } from "simplex-noise";
@@ -43,6 +42,16 @@ export const Vortex = (props: VortexProps) => {
   const noise3D = createNoise3D();
   let particleProps = new Float32Array(particlePropsLength);
   let center: [number, number] = [0, 0];
+
+  // Bright patriotic colors
+  const brightColors = [
+    'rgba(255, 0, 0, 0.9)',     // Bright red
+    'rgba(0, 100, 255, 0.9)',   // Bright blue
+    'rgba(255, 255, 255, 0.9)', // Bright white
+    'rgba(192, 192, 192, 0.9)', // Silver
+    'rgba(255, 50, 50, 0.9)',   // Bright red variant
+    'rgba(50, 150, 255, 0.9)',  // Bright blue variant
+  ];
 
   const HALF_PI: number = 0.5 * Math.PI;
   const TAU: number = 2 * Math.PI;
@@ -175,7 +184,13 @@ export const Vortex = (props: VortexProps) => {
     ctx.save();
     ctx.lineCap = "round";
     ctx.lineWidth = radius;
-    ctx.strokeStyle = `hsla(${hue},100%,60%,${fadeInOut(life, ttl)})`;
+    
+    // Use bright patriotic colors instead of HSL
+    const colorIndex = Math.floor(Math.random() * brightColors.length);
+    const opacity = fadeInOut(life, ttl);
+    const color = brightColors[colorIndex].replace('0.9', opacity.toString());
+    
+    ctx.strokeStyle = color;
     ctx.beginPath();
     ctx.moveTo(x, y);
     ctx.lineTo(x2, y2);

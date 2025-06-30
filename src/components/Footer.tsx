@@ -7,9 +7,9 @@ const Footer = () => {
   const { accessibility, increaseTextSize, toggleHighContrast, resetPreferences } = useAccessibility();
 
   return (
-    <footer id="accessibility" className="bg-[#002868] text-white py-16 relative overflow-hidden">
-      {/* Gradient overlay for top left corner */}
-      <div className="absolute top-0 left-0 w-96 h-64 bg-gradient-to-br from-blue-300/20 via-blue-400/10 to-transparent pointer-events-none"></div>
+    <footer id="accessibility" className="bg-[#002868] text-white py-16 relative">
+      {/* Top left gradient overlay */}
+      <div className="absolute top-0 left-0 w-80 h-80 bg-gradient-to-br from-blue-400/20 via-blue-500/10 to-transparent pointer-events-none"></div>
       
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         <div className="grid md:grid-cols-4 gap-8 mb-12">

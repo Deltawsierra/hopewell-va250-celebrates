@@ -1,4 +1,3 @@
-
 import React, { useRef, useState, useEffect } from 'react';
 import { timelineEvents } from '../../data/timelineEvents';
 import TimelineEvent from './TimelineEvent';

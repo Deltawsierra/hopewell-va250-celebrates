@@ -8,7 +8,7 @@ interface MobileTimelineProps {
   selectedEvent: number | null;
 }
 
-const MobileTimeline: React.FC<MobileTimelineProps> = ({ onEventClick, selectedEvent }) => {
+const MobileTimeline: React.FC<MobileTimelineProps> = ({ onEventClick }) => {
   return (
     <div className="md:hidden space-y-8">
       {timelineEvents.map((event, index) => {

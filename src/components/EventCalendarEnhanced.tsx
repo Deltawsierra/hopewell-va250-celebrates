@@ -1,6 +1,8 @@
+
 import React, { useState } from 'react';
 import { Calendar, MapPin, Clock, Users, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { BackgroundGradient } from './ui/background-gradient';
 
 const EventCalendarEnhanced = () => {
   const [selectedView, setSelectedView] = useState<'month' | 'list'>('list');
@@ -123,44 +125,48 @@ const EventCalendarEnhanced = () => {
           </div>
         </motion.div>
 
-        {/* Events to be Announced Message */}
-        <motion.div
-          className="flex flex-col items-center justify-center w-full min-h-[320px] bg-white/80 rounded-xl shadow-lg mx-auto my-8 p-8 border border-[#BF0A30]/20"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          <motion.h2 
-            className="text-2xl md:text-3xl font-bold text-[#002868] mb-4 text-center"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            Events to be announced soon
-          </motion.h2>
-          <motion.p 
-            className="text-lg text-gray-700 text-center"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-          >
-            Check back soon for Hopewell VA250 celebration event details!
-          </motion.p>
-          
-          {/* Optional decorative element */}
-          <motion.div 
-            className="mt-6 flex items-center justify-center"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.6 }}
-          >
-            <div className="w-12 h-1 bg-gradient-to-r from-[#002868] to-[#BF0A30] rounded-full"></div>
-          </motion.div>
-        </motion.div>
+        {/* Events to be Announced Message with BackgroundGradient */}
+        <div className="flex justify-center">
+          <BackgroundGradient className="rounded-xl max-w-2xl">
+            <motion.div
+              className="flex flex-col items-center justify-center w-full min-h-[320px] bg-white/90 rounded-xl shadow-lg p-8"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8 }}
+            >
+              <motion.h2 
+                className="text-2xl md:text-3xl font-bold text-[#002868] mb-4 text-center"
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                Events to be announced soon
+              </motion.h2>
+              <motion.p 
+                className="text-lg text-gray-700 text-center"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
+                Check back soon for Hopewell VA250 celebration event details!
+              </motion.p>
+              
+              {/* Optional decorative element */}
+              <motion.div 
+                className="mt-6 flex items-center justify-center"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.6 }}
+              >
+                <div className="w-12 h-1 bg-gradient-to-r from-[#002868] to-[#BF0A30] rounded-full"></div>
+              </motion.div>
+            </motion.div>
+          </BackgroundGradient>
+        </div>
       </div>
     </section>
   );

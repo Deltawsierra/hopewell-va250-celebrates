@@ -13,7 +13,7 @@ export default function HeroFlagGifOverlay() {
       }}
     >
       <img
-        src="/lovable-uploads/0161e249-0a21-4052-b752-39b5da822c7d.png"
+        src="https://i.gifer.com/5Lao.mp4"
         alt=""
         style={{
           width: '100%',

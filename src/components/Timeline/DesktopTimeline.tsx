@@ -42,7 +42,7 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
     const container = e.currentTarget;
     const rect = container.getBoundingClientRect();
     const x = e.clientX - rect.left;
-    const threshold = 100; // Area for triggering scroll
+    const threshold = 80; // Reduced threshold for edge detection
 
     if (x < threshold && canScrollLeft) {
       setIsScrolling('left');
@@ -60,51 +60,53 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
 
   return (
     <div className="hidden md:block relative pb-64">
-      <div 
-        ref={containerRef}
-        className="timeline-container overflow-x-auto overflow-y-hidden scrollbar-hide cursor-pointer w-full relative"
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        style={{ 
-          scrollbarWidth: 'none', 
-          msOverflowStyle: 'none',
-          height: 'auto',
-          position: 'relative'
-        }}
-      >
-        {/* Navigation arrows positioned relative to this container */}
-        <div className="relative">
+      {/* Timeline Container with relative positioning for arrow placement */}
+      <div className="relative">
+        <div 
+          ref={containerRef}
+          className="timeline-container overflow-x-auto overflow-y-hidden scrollbar-hide cursor-pointer w-full relative"
+          onMouseMove={handleMouseMove}
+          onMouseLeave={handleMouseLeave}
+          style={{ 
+            scrollbarWidth: 'none', 
+            msOverflowStyle: 'none',
+            height: 'auto',
+            paddingLeft: '80px', // Add padding to prevent arrow overlap with first event
+            paddingRight: '80px' // Add padding to prevent arrow overlap with last event
+          }}
+        >
+          {/* Navigation arrows positioned absolutely within this container */}
           <NavigationArrows
             canScrollLeft={canScrollLeft}
             canScrollRight={canScrollRight}
             isScrolling={isScrolling}
           />
-        </div>
 
-        <div 
-          ref={scrollerRef}
-          className="relative min-w-full py-12 px-8"
-        >
-          <div className="flex justify-between items-start relative w-full" style={{ minWidth: '1800px' }}>
-            {timelineEvents.map((event, index) => (
-              <TimelineEvent
-                key={index}
-                event={event}
-                index={index}
-                isHovered={hoveredEvent === index}
-                onHover={setHoveredEvent}
-                onClick={(eventIndex) => onEventClick(selectedEvent === eventIndex ? -1 : eventIndex)}
-              />
-            ))}
+          <div 
+            ref={scrollerRef}
+            className="relative min-w-full py-12 px-8"
+          >
+            <div className="flex justify-between items-start relative w-full" style={{ minWidth: '1800px' }}>
+              {timelineEvents.map((event, index) => (
+                <TimelineEvent
+                  key={index}
+                  event={event}
+                  index={index}
+                  isHovered={hoveredEvent === index}
+                  onHover={setHoveredEvent}
+                  onClick={(eventIndex) => onEventClick(selectedEvent === eventIndex ? -1 : eventIndex)}
+                />
+              ))}
+            </div>
+            
+            <ProgressLine
+              scrollProgress={scrollProgress}
+              visibleProgress={visibleProgress}
+              isScrolling={isScrolling}
+              containerWidth={containerWidth}
+              totalWidth={totalWidth}
+            />
           </div>
-          
-          <ProgressLine
-            scrollProgress={scrollProgress}
-            visibleProgress={visibleProgress}
-            isScrolling={isScrolling}
-            containerWidth={containerWidth}
-            totalWidth={totalWidth}
-          />
         </div>
       </div>
 

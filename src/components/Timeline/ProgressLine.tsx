@@ -11,11 +11,9 @@ interface ProgressLineProps {
 }
 
 const ProgressLine: React.FC<ProgressLineProps> = ({ 
-  scrollProgress, 
-  isScrolling, 
+  visibleProgress,
   containerWidth, 
-  totalWidth,
-  visibleProgress
+  totalWidth
 }) => {
   // Calculate the background line width (full timeline)
   const backgroundWidth = totalWidth > 0 ? Math.max(totalWidth - 128, containerWidth - 128) : 'calc(100% - 128px)';
@@ -41,21 +39,15 @@ const ProgressLine: React.FC<ProgressLineProps> = ({
         style={{ 
           top: '280px',
           background: 'linear-gradient(90deg, #002868 0%, #BF0A30 50%, #002868 100%)',
-          boxShadow: isScrolling 
-            ? '0 0 25px rgba(191, 10, 48, 0.6), 0 0 45px rgba(191, 10, 48, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2)' 
-            : '0 2px 8px rgba(0, 40, 104, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2)'
+          boxShadow: '0 2px 8px rgba(0, 40, 104, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2)'
         }}
         animate={{
           width: typeof backgroundWidth === 'number' 
             ? `${(backgroundWidth * progressWidth) / 100}px` 
-            : `${progressWidth}%`,
-          boxShadow: isScrolling 
-            ? '0 0 25px rgba(191, 10, 48, 0.6), 0 0 45px rgba(191, 10, 48, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2)' 
-            : '0 2px 8px rgba(0, 40, 104, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2)'
+            : `${progressWidth}%`
         }}
         transition={{ 
-          width: { duration: 0.3, ease: "easeOut" },
-          boxShadow: { duration: 0.3 }
+          width: { duration: 0.3, ease: "easeOut" }
         }}
       />
     </>

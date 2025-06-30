@@ -310,7 +310,7 @@ const EventCalendarEnhanced = () => {
             transition={{ duration: 0.5 }}
           >
             <p className="text-gray-500 text-lg">No events found for the selected filter.</p>
-          </div>
+          </motion.div>
         )}
       </div>
     </section>

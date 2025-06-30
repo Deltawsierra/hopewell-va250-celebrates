@@ -7,7 +7,7 @@ export default function HeroFlagGifOverlay() {
       aria-hidden="true"
       className="absolute inset-0 pointer-events-none select-none"
       style={{
-        opacity: 0,
+        opacity: 1,
         mixBlendMode: 'screen',
         zIndex: 20,
       }}

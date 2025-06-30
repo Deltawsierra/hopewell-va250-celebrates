@@ -1,0 +1,64 @@
+
+/* High Contrast Mode Styles */
+.high-contrast {
+  filter: contrast(150%) brightness(1.2);
+}
+
+.high-contrast * {
+  border-color: #000 !important;
+}
+
+.high-contrast .text-gray-300 {
+  color: #fff !important;
+}
+
+.high-contrast .text-gray-600 {
+  color: #000 !important;
+}
+
+.high-contrast .text-gray-700 {
+  color: #000 !important;
+}
+
+.high-contrast .bg-gray-50 {
+  background-color: #fff !important;
+}
+
+.high-contrast .bg-blue-50 {
+  background-color: #fff !important;
+}
+
+.high-contrast .bg-red-50 {
+  background-color: #fff !important;
+}
+
+/* Enhanced Focus styles for accessibility */
+*:focus {
+  outline: 3px solid #BF0A30;
+  outline-offset: 2px;
+  transition: outline 0.2s ease;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .text-gray-600 {
+    @apply text-gray-800;
+  }
+  .text-gray-700 {
+    @apply text-gray-900;
+  }
+}
+
+/* Enhanced Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .star-pattern {
+    animation: none !important;
+  }
+}

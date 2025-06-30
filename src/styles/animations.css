@@ -1,0 +1,48 @@
+
+/* Enhanced Custom Animations */
+.animate-fade-in {
+  animation: fade-in 0.8s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.3s ease-out forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Enhanced Patriotic Star Pattern Background */
+.star-pattern {
+  background-image: radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.4), transparent),
+                    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.3), transparent),
+                    radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.4), transparent),
+                    radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.3), transparent),
+                    radial-gradient(2px 2px at 160px 30px, rgba(255,255,255,0.4), transparent);
+  background-repeat: repeat;
+  background-size: 200px 150px;
+  animation: star-drift 20s linear infinite;
+}
+
+@keyframes star-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 200px 150px; }
+}

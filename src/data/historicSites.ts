@@ -50,7 +50,7 @@ export const historicSites: HistoricSite[] = [
     id: 5,
     name: 'City Point Waterfront',
     description: 'Scenic boardwalk and park at the historic confluence of the James and Appomattox rivers, where City Point was strategically founded in 1613.',
-    image: '/lovable-uploads/610d8137-4117-41b8-9ccc-545384c32298.png',
+    image: '/lovable-uploads/15538ddf-a515-43bd-b538-cf35edf67f73.png',
     hours: 'Dawn to Dusk',
     address: 'City Point, Hopewell, VA',
     details: 'The strategic location that made City Point a center of commerce, conflict, and community for over 400 years. Features walking trails and river views.'
@@ -68,7 +68,7 @@ export const historicSites: HistoricSite[] = [
     id: 7,
     name: 'Appomattox Regional Library',
     description: 'Founded in 1930, ARLS provides lifelong learning and community programming. The flagship Maude Langhorne Nelson Library honors Hopewell\'s first librarian.',
-    image: '/lovable-uploads/bcd6728f-2e29-4995-9579-b5114652ca3c.png',
+    image: '/lovable-uploads/e2619251-b400-40e3-a722-c27155d0b655.png',
     hours: 'Mon-Sat Various Hours',
     address: 'Hopewell, VA',
     details: 'Serves Hopewell, Prince George, and Dinwiddie counties through eight locations, fostering community connections and knowledge access.'
@@ -77,7 +77,7 @@ export const historicSites: HistoricSite[] = [
     id: 8,
     name: 'City Point National Cemetery',
     description: 'Historic cemetery reflecting Hopewell\'s role in American military history, particularly during the Civil War period.',
-    image: '/lovable-uploads/610d8137-4117-41b8-9ccc-545384c32298.png',
+    image: '/lovable-uploads/bb6a6926-5364-41f6-a804-e6b9690c5dab.png',
     hours: 'Dawn to Dusk',
     address: 'City Point, Hopewell, VA',
     details: 'Part of the City Point Historic District, preserving the memory of those who served during America\'s defining conflicts.'

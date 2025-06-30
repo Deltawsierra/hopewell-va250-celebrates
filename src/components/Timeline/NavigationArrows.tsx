@@ -19,7 +19,7 @@ const NavigationArrows: React.FC<NavigationArrowsProps> = ({
       {/* Left Arrow */}
       {canScrollLeft && (
         <motion.div
-          className="absolute left-4 top-1/2 -translate-y-1/2 z-30 pointer-events-none"
+          className="absolute left-2 top-1/2 -translate-y-1/2 z-30 pointer-events-none"
           initial={{ opacity: 0, x: -20 }}
           animate={{ 
             opacity: isScrolling === 'left' ? 1 : 0.7,
@@ -47,7 +47,7 @@ const NavigationArrows: React.FC<NavigationArrowsProps> = ({
       {/* Right Arrow */}
       {canScrollRight && (
         <motion.div
-          className="absolute right-4 top-1/2 -translate-y-1/2 z-30 pointer-events-none"
+          className="absolute right-2 top-1/2 -translate-y-1/2 z-30 pointer-events-none"
           initial={{ opacity: 0, x: 20 }}
           animate={{ 
             opacity: isScrolling === 'right' ? 1 : 0.7,

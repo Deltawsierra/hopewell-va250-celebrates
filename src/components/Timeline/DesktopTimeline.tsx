@@ -41,7 +41,7 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
     const container = e.currentTarget;
     const rect = container.getBoundingClientRect();
     const x = e.clientX - rect.left;
-    const threshold = 120;
+    const threshold = 80; // Reduced threshold for edge detection
 
     if (x < threshold && canScrollLeft) {
       setIsScrolling('left');

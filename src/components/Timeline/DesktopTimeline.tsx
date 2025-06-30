@@ -18,8 +18,7 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
+  const [dragStart, setDragStart] = useState({ x: 0, scrollLeft: 0 });
 
   // Enable mouse wheel horizontal scrolling when hovering timeline
   useEffect(() => {
@@ -45,8 +44,13 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
     if (!el) return;
     
     setIsDragging(true);
-    setStartX(e.pageX - el.offsetLeft);
-    setScrollLeft(el.scrollLeft);
+    setDragStart({
+      x: e.pageX,
+      scrollLeft: el.scrollLeft
+    });
+    
+    // Prevent text selection during drag
+    e.preventDefault();
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -54,9 +58,9 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
     
     e.preventDefault();
     const el = scrollRef.current;
-    const x = e.pageX - el.offsetLeft;
-    const walk = (x - startX) * 2; // Multiply by 2 for faster scrolling
-    el.scrollLeft = scrollLeft - walk;
+    const x = e.pageX;
+    const walk = (x - dragStart.x) * 2; // Multiply by 2 for faster scrolling
+    el.scrollLeft = dragStart.scrollLeft - walk;
   };
 
   const handleMouseUp = () => {
@@ -66,6 +70,32 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
   const handleMouseLeave = () => {
     setIsDragging(false);
   };
+
+  // Global mouse events for better drag handling
+  useEffect(() => {
+    if (!isDragging) return;
+
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      if (!scrollRef.current) return;
+      
+      const el = scrollRef.current;
+      const x = e.pageX;
+      const walk = (x - dragStart.x) * 2;
+      el.scrollLeft = dragStart.scrollLeft - walk;
+    };
+
+    const handleGlobalMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    document.addEventListener('mousemove', handleGlobalMouseMove);
+    document.addEventListener('mouseup', handleGlobalMouseUp);
+
+    return () => {
+      document.removeEventListener('mousemove', handleGlobalMouseMove);
+      document.removeEventListener('mouseup', handleGlobalMouseUp);
+    };
+  }, [isDragging, dragStart]);
 
   return (
     <div className="hidden md:block relative pb-16">

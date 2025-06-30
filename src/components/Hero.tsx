@@ -29,7 +29,7 @@ const Hero: React.FC<HeroProps> = ({ onScrollToSection }) => {
       
 
       {/* Patriotic Stars Pattern - z-30 */}
-      <div className="absolute inset-0 opacity-60 z-30">
+      <div className="absolute inset-0 opacity-80 z-30">
         {[...Array(20)].map((_, i) => (
           <div
             key={i}

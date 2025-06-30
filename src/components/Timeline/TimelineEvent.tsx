@@ -21,6 +21,14 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
 }) => {
   const IconComponent = event.icon;
 
+  const handleMouseEnter = () => {
+    onHover(index);
+  };
+
+  const handleMouseLeave = () => {
+    onHover(null);
+  };
+
   return (
     <motion.div
       className="flex flex-col items-center cursor-pointer group relative"
@@ -29,13 +37,13 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      onHoverStart={() => onHover(index)}
-      onHoverEnd={() => onHover(null)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       onClick={() => onClick(index)}
     >
       {/* Event Icon */}
       <motion.div 
-        className={`w-24 h-24 ${event.color} rounded-full flex items-center justify-center mb-6 shadow-lg relative overflow-hidden z-20`}
+        className={`w-24 h-24 ${event.color} rounded-full flex items-center justify-center mb-6 shadow-lg relative overflow-hidden z-10`}
         whileHover={{ 
           scale: 1.1,
           boxShadow: "0 10px 30px rgba(0, 40, 104, 0.3)",
@@ -53,7 +61,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
         
         {/* Glowing effect */}
         <motion.div
-          className="absolute inset-0 bg-white rounded-full"
+          className="absolute inset-0 bg-white rounded-full pointer-events-none"
           initial={{ scale: 0, opacity: 0 }}
           animate={isHovered ? { 
             scale: [0, 1.5], 

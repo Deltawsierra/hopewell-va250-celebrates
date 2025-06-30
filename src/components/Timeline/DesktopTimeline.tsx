@@ -61,6 +61,7 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
 
   const handleMouseLeave = () => {
     setIsScrolling(false);
+    setHoveredEvent(null); // Clear hover when leaving container
   };
 
   return (
@@ -89,8 +90,8 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
           
           {/* Timeline Line - Positioned well below all text and icons */}
           <motion.div 
-            className="absolute left-8 right-8 h-3 bg-gradient-to-r from-[#002868] via-[#BF0A30] to-[#002868] rounded-full"
-            style={{ top: '260px' }}
+            className="absolute left-8 right-8 h-3 bg-gradient-to-r from-[#002868] via-[#BF0A30] to-[#002868] rounded-full pointer-events-none"
+            style={{ top: '280px' }}
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}

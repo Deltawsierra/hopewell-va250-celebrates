@@ -28,11 +28,11 @@ const Hero: React.FC<HeroProps> = ({ onScrollToSection }) => {
       <div className="absolute inset-0 bg-[#002868] bg-opacity-70 z-10" />
       
       {/* Patriotic Stars Pattern - z-30 */}
-      <div className="absolute inset-0 opacity-10 z-30">
+      <div className="absolute inset-0 opacity-30 z-30">
         {[...Array(20)].map((_, i) => (
           <div
             key={i}
-            className="absolute text-white text-2xl animate-pulse"
+            className="absolute text-white text-4xl animate-pulse"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,

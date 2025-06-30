@@ -1,7 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { ChevronDown } from 'lucide-react';
-import HeroFlagGifOverlay from './HeroFlagGifOverlay';
 
 interface HeroProps {
   onScrollToSection: (sectionId: string) => void;
@@ -27,9 +26,6 @@ const Hero: React.FC<HeroProps> = ({ onScrollToSection }) => {
       
       {/* Color Overlay - z-10 */}
       <div className="absolute inset-0 bg-[#002868] bg-opacity-70 z-10" />
-      
-      {/* Flag GIF Overlay - z-20 */}
-      <HeroFlagGifOverlay />
       
       {/* Patriotic Stars Pattern - z-30 */}
       <div className="absolute inset-0 opacity-10 z-30">

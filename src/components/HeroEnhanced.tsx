@@ -39,40 +39,70 @@ const HeroEnhanced: React.FC<HeroEnhancedProps> = ({ onScrollToSection }) => {
         draggable={false}
       />
 
-      {/* Transparent Gradient Overlay - Blue to Red to White */}
-      <div
-        className="absolute inset-0 z-10"
-        style={{
-          background: `linear-gradient(180deg, rgba(0,40,104,0.45) 0%, rgba(191,10,48,0.30) 60%, rgba(255,255,255,0.15) 100%)`,
-        }}
-      />
-
-      {/* Subtle Animated Background Elements */}
-      <div ref={flagRef} className="absolute inset-0 opacity-15 pointer-events-none z-15">
-        {[...Array(20)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute text-white text-lg"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -15, 0],
-              x: [0, 8, 0],
-              scale: [1, 1.1, 1],
-              opacity: [0.2, 0.6, 0.2],
-            }}
-            transition={{
-              duration: 4 + Math.random() * 2,
-              repeat: Infinity,
-              delay: Math.random() * 2,
-              ease: "easeInOut",
-            }}
+      {/* American Flag Overlay */}
+      <div className="absolute inset-0 z-10 flag-overlay">
+        {/* Blue Canton with Stars */}
+        <div className="absolute top-0 left-0 w-1/3 h-2/5 bg-[#002868] opacity-60 flex items-center justify-center">
+          <svg
+            width="100%"
+            height="100%"
+            viewBox="0 0 300 200"
+            className="absolute inset-0"
           >
-            ★
-          </motion.div>
-        ))}
+            {/* Generate stars in a pattern */}
+            {[...Array(50)].map((_, i) => {
+              const row = Math.floor(i / 10);
+              const col = i % 10;
+              const x = 20 + col * 26 + (row % 2 === 1 ? 13 : 0);
+              const y = 20 + row * 20;
+              return (
+                <motion.circle
+                  key={i}
+                  cx={x}
+                  cy={y}
+                  r="2"
+                  fill="white"
+                  animate={{
+                    opacity: [0.6, 1, 0.6],
+                    scale: [1, 1.2, 1],
+                  }}
+                  transition={{
+                    duration: 2 + Math.random() * 2,
+                    repeat: Infinity,
+                    delay: Math.random() * 2,
+                    ease: "easeInOut",
+                  }}
+                />
+              );
+            })}
+          </svg>
+        </div>
+
+        {/* Red and White Stripes */}
+        <div className="absolute inset-0 flex flex-col">
+          {[...Array(13)].map((_, i) => (
+            <motion.div
+              key={i}
+              className={`flex-1 ${i % 2 === 0 ? 'bg-[#BF0A30]' : 'bg-white'} opacity-25`}
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{
+                duration: 1.5,
+                delay: i * 0.1,
+                ease: "easeOut",
+              }}
+              style={{ transformOrigin: 'left' }}
+            />
+          ))}
+        </div>
+
+        {/* Additional subtle gradient for text readability */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.1) 100%)`,
+          }}
+        />
       </div>
 
       {/* Content with Enhanced Animations */}
@@ -85,13 +115,13 @@ const HeroEnhanced: React.FC<HeroEnhancedProps> = ({ onScrollToSection }) => {
           <motion.h1 
             className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
             style={{
-              textShadow: '2px 2px 8px rgba(0,0,0,0.7), 0 0 20px rgba(191,10,48,0.3)'
+              textShadow: '3px 3px 12px rgba(0,0,0,0.8), 0 0 25px rgba(0,0,0,0.5)'
             }}
             animate={{
               textShadow: [
-                "2px 2px 8px rgba(0,0,0,0.7), 0 0 20px rgba(191,10,48,0.3)",
-                "2px 2px 8px rgba(0,0,0,0.7), 0 0 30px rgba(191,10,48,0.4)",
-                "2px 2px 8px rgba(0,0,0,0.7), 0 0 20px rgba(191,10,48,0.3)",
+                "3px 3px 12px rgba(0,0,0,0.8), 0 0 25px rgba(0,0,0,0.5)",
+                "3px 3px 12px rgba(0,0,0,0.8), 0 0 35px rgba(0,0,0,0.6)",
+                "3px 3px 12px rgba(0,0,0,0.8), 0 0 25px rgba(0,0,0,0.5)",
               ],
             }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
@@ -102,7 +132,7 @@ const HeroEnhanced: React.FC<HeroEnhancedProps> = ({ onScrollToSection }) => {
           <motion.h2 
             className="text-2xl md:text-3xl font-bold text-white mb-8"
             style={{
-              textShadow: '1px 1px 4px rgba(0,0,0,0.8)'
+              textShadow: '2px 2px 8px rgba(0,0,0,0.8)'
             }}
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
@@ -114,7 +144,7 @@ const HeroEnhanced: React.FC<HeroEnhancedProps> = ({ onScrollToSection }) => {
           <motion.p 
             className="text-xl md:text-2xl text-white mb-12 leading-relaxed opacity-95"
             style={{
-              textShadow: '1px 1px 3px rgba(0,0,0,0.7)'
+              textShadow: '2px 2px 6px rgba(0,0,0,0.8)'
             }}
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}

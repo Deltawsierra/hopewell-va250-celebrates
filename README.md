@@ -49,9 +49,9 @@ The website features:
 
 The site is configured for static hosting and can be deployed to any modern web hosting platform.
 
-## Contributing
+## Development
 
-This project is maintained by the City of Hopewell development team. For questions or contributions, please contact the city's digital services department.
+This project is designed and built by Hopewell IT Dept. For questions or contributions, please contact the city's digital services department.
 
 ## License
 

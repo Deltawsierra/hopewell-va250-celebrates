@@ -1,3 +1,4 @@
+
 import { cn } from "@/lib/utils";
 import React, { useEffect, useRef } from "react";
 import { createNoise3D } from "simplex-noise";
@@ -43,14 +44,12 @@ export const Vortex = (props: VortexProps) => {
   let particleProps = new Float32Array(particlePropsLength);
   let center: [number, number] = [0, 0];
 
-  // Bright patriotic colors with stable opacity
-  const brightColors = [
-    'rgba(255, 0, 0, 0.8)',     // Bright red
-    'rgba(0, 100, 255, 0.8)',   // Bright blue
-    'rgba(255, 255, 255, 0.9)', // Bright white
-    'rgba(192, 192, 192, 0.7)', // Silver
-    'rgba(255, 50, 50, 0.8)',   // Bright red variant
-    'rgba(50, 150, 255, 0.8)',  // Bright blue variant
+  // Four patriotic colors with equal distribution
+  const patrioticColors = [
+    'rgba(0, 47, 108, 0.9)',    // Deep blue
+    'rgba(255, 0, 0, 0.9)',     // Bright red
+    'rgba(255, 255, 255, 0.9)', // Pure white
+    'rgba(192, 192, 192, 0.8)', // Metallic silver
   ];
 
   const HALF_PI: number = 0.5 * Math.PI;
@@ -90,8 +89,9 @@ export const Vortex = (props: VortexProps) => {
 
     let x, y, vx, vy, life, ttl, speed, radius, hue;
 
+    // Spread particles across the entire canvas area
     x = rand(canvas.width);
-    y = center[1] + randRange(rangeY);
+    y = rand(canvas.height);
     vx = 0;
     vy = 0;
     life = 0;
@@ -153,7 +153,7 @@ export const Vortex = (props: VortexProps) => {
     radius = particleProps[i8];
     hue = particleProps[i9];
 
-    drawParticle(x, y, x2, y2, life, ttl, radius, hue, ctx);
+    drawParticle(x, y, x2, y2, life, ttl, radius, hue, ctx, i);
 
     life++;
 
@@ -176,17 +176,21 @@ export const Vortex = (props: VortexProps) => {
     radius: number,
     hue: number,
     ctx: CanvasRenderingContext2D,
+    particleIndex: number,
   ) => {
     ctx.save();
     ctx.lineCap = "round";
     ctx.lineWidth = radius;
     
-    // Use bright patriotic colors with stable opacity
-    const colorIndex = Math.floor(hue / 60) % brightColors.length;
-    ctx.strokeStyle = brightColors[colorIndex];
+    // Ensure equal distribution of the four colors
+    const particleId = Math.floor(particleIndex / particlePropCount);
+    const colorIndex = particleId % 4;
+    const selectedColor = patrioticColors[colorIndex];
+    
+    ctx.strokeStyle = selectedColor;
     
     // Add a subtle glow effect
-    ctx.shadowColor = brightColors[colorIndex];
+    ctx.shadowColor = selectedColor;
     ctx.shadowBlur = 3;
     
     ctx.beginPath();

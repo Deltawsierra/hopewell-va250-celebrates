@@ -9,7 +9,6 @@ import TimelineModal from './Timeline/TimelineModal';
 const TimelineEnhanced = () => {
   const [selectedEvent, setSelectedEvent] = useState<number | null>(null);
   const [hoveredEvent, setHoveredEvent] = useState<number | null>(null);
-  const [isScrolling, setIsScrolling] = useState<'left' | 'right' | false>(false);
 
   const handleEventClick = (index: number) => {
     setSelectedEvent(index === -1 ? null : index);
@@ -63,8 +62,6 @@ const TimelineEnhanced = () => {
             setHoveredEvent={setHoveredEvent}
             onEventClick={handleEventClick}
             selectedEvent={selectedEvent}
-            isScrolling={isScrolling}
-            setIsScrolling={setIsScrolling}
           />
         </div>
 

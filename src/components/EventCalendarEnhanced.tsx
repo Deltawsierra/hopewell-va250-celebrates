@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Calendar, MapPin, Clock, Users, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -96,9 +95,27 @@ const EventCalendarEnhanced = () => {
 
   return (
     <section id="events" className="py-20 bg-gradient-to-b from-red-100 via-blue-50 to-blue-100 relative overflow-hidden">
-      {/* Subtle Animated Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute inset-0 bg-[linear-gradient(45deg,_#002868_25%,_transparent_25%,_transparent_75%,_#002868_75%,_#002868),_linear-gradient(45deg,_#002868_25%,_transparent_25%,_transparent_75%,_#002868_75%,_#002868)] bg-[length:20px_20px] bg-[position:0_0,_10px_10px]"></div>
+      {/* Subtle Animated Background Elements - Professional Stars Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        {[...Array(15)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-[#002868] rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+            animate={{
+              scale: [1, 1.5, 1],
+              opacity: [0.3, 0.7, 0.3],
+            }}
+            transition={{
+              duration: 4 + Math.random() * 2,
+              repeat: Infinity,
+              delay: Math.random() * 3,
+            }}
+          />
+        ))}
       </div>
 
       {/* Seamless transition overlay */}

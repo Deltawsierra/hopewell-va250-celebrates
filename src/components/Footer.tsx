@@ -74,14 +74,14 @@ const Footer = () => {
         {/* Social Links */}
         <div className="flex flex-col md:flex-row justify-between items-center border-t border-gray-700 pt-8">
           <div className="flex space-x-4 mb-4 md:mb-0">
-            <a href="#" className="text-gray-300 hover:text-white transition-colors duration-300">
-              <Facebook className="w-6 h-6" />
+            <a href="https://www.facebook.com/HopewellCityGovt/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors duration-300">
+              <Facebook className="w-8 h-8" />
             </a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors duration-300">
-              <Twitter className="w-6 h-6" />
+            <a href="https://x.com/Hopewell_VA" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors duration-300">
+              <Twitter className="w-8 h-8" />
             </a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors duration-300">
-              <Instagram className="w-6 h-6" />
+            <a href="https://www.instagram.com/hopewellva/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors duration-300">
+              <Instagram className="w-8 h-8" />
             </a>
           </div>
           

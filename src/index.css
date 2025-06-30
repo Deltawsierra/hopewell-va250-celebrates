@@ -254,51 +254,75 @@ html {
   );
 }
 
-/* Waving flag animations */
-@keyframes wave-stripe {
+/* Flag Overlay Animations */
+.flag-overlay {
+  pointer-events: none;
+}
+
+.flag-overlay::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  animation: flag-shimmer 8s ease-in-out infinite;
+}
+
+@keyframes flag-shimmer {
   0%, 100% {
-    transform: translateX(0) scaleX(1);
-  }
-  25% {
-    transform: translateX(2px) scaleX(1.01);
+    transform: translateX(-100%);
+    opacity: 0;
   }
   50% {
-    transform: translateX(0) scaleX(0.99);
-  }
-  75% {
-    transform: translateX(-2px) scaleX(1.01);
+    transform: translateX(100%);
+    opacity: 0.3;
   }
 }
 
-@keyframes wave-canton {
-  0%, 100% {
-    transform: translateX(0) skewX(0deg);
-  }
-  25% {
-    transform: translateX(1px) skewX(0.5deg);
-  }
-  50% {
-    transform: translateX(0) skewX(0deg);
-  }
-  75% {
-    transform: translateX(-1px) skewX(-0.5deg);
-  }
-}
-
-@keyframes twinkle {
+/* Star twinkling animation enhancement */
+@keyframes star-twinkle {
   0%, 100% {
     opacity: 0.6;
-    transform: translate(-50%, -50%) scale(1);
+    transform: scale(1);
   }
   50% {
     opacity: 1;
-    transform: translate(-50%, -50%) scale(1.1);
+    transform: scale(1.2);
   }
 }
 
-/* Performance optimizations for flag animations */
-.flag-overlay {
+/* Stripe wave animation */
+@keyframes stripe-wave {
+  0%, 100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.02);
+  }
+}
+
+/* Performance optimization for flag animations */
+.flag-overlay * {
   will-change: transform, opacity;
   backface-visibility: hidden;
-  perspective: 1000px;
+}
+
+/* Reduced motion support for flag animations */
+@media (prefers-reduced-motion: reduce) {
+  .flag-overlay::before {
+    animation: none !important;
+  }
+  
+  .flag-overlay * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

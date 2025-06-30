@@ -18,47 +18,35 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
   selectedEvent
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [visibleProgress, setVisibleProgress] = useState(0);
+  const barRef = useRef<HTMLDivElement>(null);
+  const [fillWidth, setFillWidth] = useState(0);
 
-  // Update scroll progress
+  // Update progress bar width based on scroll position
   const updateScrollState = () => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    const scrollLeft = container.scrollLeft;
-    const maxScroll = container.scrollWidth - container.clientWidth;
-    const clientWidth = container.clientWidth;
-    const scrollWidth = container.scrollWidth;
+    const el = scrollRef.current;
+    const bar = barRef.current;
+    if (!el || !bar) return;
     
-    // Calculate scroll progress (0 to 1)
-    const progress = maxScroll > 0 ? Math.min(Math.max(scrollLeft / maxScroll, 0), 1) : 0;
-    setScrollProgress(progress);
-    
-    // Calculate visible content progress for the dynamic line
-    const visibleEnd = scrollLeft + clientWidth;
-    const visibleContentProgress = Math.min(visibleEnd / scrollWidth, 1);
-    setVisibleProgress(visibleContentProgress);
+    const totalScrollable = el.scrollWidth - el.clientWidth;
+    const progress = totalScrollable === 0 ? 1 : el.scrollLeft / totalScrollable;
+    setFillWidth(progress * bar.offsetWidth);
   };
 
   useEffect(() => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    // Initial state update
     updateScrollState();
+    const el = scrollRef.current;
+    if (!el) return;
 
-    // Add scroll listener
+    // Add scroll listener for progress bar
     const handleScroll = () => updateScrollState();
-    container.addEventListener('scroll', handleScroll, { passive: true });
+    el.addEventListener('scroll', handleScroll, { passive: true });
 
     // Add resize listener
     const handleResize = () => updateScrollState();
     window.addEventListener('resize', handleResize);
 
     return () => {
-      container.removeEventListener('scroll', handleScroll);
+      el.removeEventListener('scroll', handleScroll);
       window.removeEventListener('resize', handleResize);
     };
   }, []);
@@ -69,10 +57,8 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
     if (!el) return;
     
     const onWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-        // Already scrolling horizontally
-        return;
-      }
+      // Only intercept vertical wheel for horizontal scroll
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
       if (e.deltaY !== 0) {
         e.preventDefault();
         el.scrollLeft += e.deltaY;
@@ -89,7 +75,7 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
       <div className="relative max-w-6xl mx-auto px-4">
         {/* Visual (non-clickable) Left Arrow */}
         <div
-          className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 z-30 
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-30 pointer-events-none 
                      flex items-center justify-center bg-white/95 backdrop-blur-sm shadow-xl 
                      rounded-full w-12 h-12 border border-gray-200/50 opacity-80"
           aria-hidden="true"
@@ -103,7 +89,7 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
 
         {/* Visual (non-clickable) Right Arrow */}
         <div
-          className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 z-30 
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-30 pointer-events-none 
                      flex items-center justify-center bg-white/95 backdrop-blur-sm shadow-xl 
                      rounded-full w-12 h-12 border border-gray-200/50 opacity-80"
           aria-hidden="true"
@@ -127,13 +113,31 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
           }}
           tabIndex={0}
         >
-          <div 
-            ref={contentRef}
-            className="relative py-12 select-none"
-            style={{ minWidth: '1800px' }}
-          >
+          <div className="relative py-12 select-none">
+            {/* Timeline Bar (track) */}
+            <div
+              ref={barRef}
+              className="absolute left-0 right-0 h-2 bg-gray-300/40 rounded-full pointer-events-none"
+              style={{ 
+                top: '280px',
+                boxShadow: 'inset 0 1px 3px rgba(0, 0, 0, 0.1)'
+              }}
+            />
+            
+            {/* Timeline Bar (fill/progress) */}
+            <div
+              className="absolute left-0 h-2 rounded-full pointer-events-none"
+              style={{ 
+                top: '280px',
+                background: 'linear-gradient(90deg, #002868 0%, #BF0A30 50%, #002868 100%)',
+                boxShadow: '0 2px 8px rgba(0, 40, 104, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2)',
+                width: fillWidth,
+                transition: 'width 0.3s ease-out'
+              }}
+            />
+
             {/* Timeline Events */}
-            <div className="flex justify-between items-start relative w-full">
+            <div className="flex w-max space-x-12">
               {timelineEvents.map((event, index) => (
                 <TimelineEvent
                   key={index}
@@ -145,24 +149,11 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
                 />
               ))}
             </div>
-            
-            {/* Progress Line */}
-            <ProgressLine
-              scrollProgress={scrollProgress}
-              visibleProgress={visibleProgress}
-              isScrolling={false}
-              containerWidth={scrollRef.current?.clientWidth || 0}
-              totalWidth={scrollRef.current?.scrollWidth || 0}
-            />
           </div>
         </div>
       </div>
 
       <style>{`
-        .timeline-container::-webkit-scrollbar {
-          display: none;
-        }
-        
         .scrollbar-hide {
           -ms-overflow-style: none;
           scrollbar-width: none;

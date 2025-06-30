@@ -29,40 +29,27 @@ const HeroEnhanced: React.FC<HeroEnhancedProps> = ({ onScrollToSection }) => {
 
   return (
     <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Aurora Background Effect */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#002868] via-[#BF0A30] to-[#002868] opacity-90">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-red-900/20 to-blue-900/20 animate-pulse"></div>
-      </div>
+      {/* Background Image */}
+      <img
+        src="/lovable-uploads/57b14884-e653-41ee-a910-dadce173d5d6.png"
+        alt="Aerial view of Hopewell, VA at the confluence of James and Appomattox rivers"
+        className="absolute inset-0 w-full h-full object-cover z-0"
+        style={{ filter: 'brightness(0.9) contrast(1.05)' }}
+        loading="eager"
+        draggable={false}
+      />
 
-      {/* Animated Flag Pattern */}
-      <div ref={flagRef} className="absolute inset-0 opacity-10 pointer-events-none">
-        <div className="absolute inset-0 star-pattern animate-pulse"></div>
-        {[...Array(13)].map((_, i) => (
-          <motion.div
-            key={i}
-            className="absolute"
-            style={{
-              left: `${10 + (i * 7)}%`,
-              top: `${20 + (i % 3) * 20}%`,
-            }}
-            animate={{
-              y: [0, -10, 0],
-              opacity: [0.3, 0.7, 0.3],
-            }}
-            transition={{
-              duration: 3 + (i * 0.2),
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          >
-            <div className="w-8 h-1 bg-white/30 transform rotate-12"></div>
-          </motion.div>
-        ))}
-      </div>
+      {/* Transparent Gradient Overlay - Blue to Red to White */}
+      <div
+        className="absolute inset-0 z-10"
+        style={{
+          background: `linear-gradient(180deg, rgba(0,40,104,0.45) 0%, rgba(191,10,48,0.30) 60%, rgba(255,255,255,0.15) 100%)`,
+        }}
+      />
 
-      {/* Floating Stars Animation */}
-      <div className="absolute inset-0 opacity-20">
-        {[...Array(25)].map((_, i) => (
+      {/* Subtle Animated Background Elements */}
+      <div ref={flagRef} className="absolute inset-0 opacity-15 pointer-events-none z-15">
+        {[...Array(20)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute text-white text-lg"
@@ -71,10 +58,10 @@ const HeroEnhanced: React.FC<HeroEnhancedProps> = ({ onScrollToSection }) => {
               top: `${Math.random() * 100}%`,
             }}
             animate={{
-              y: [0, -20, 0],
-              x: [0, 10, 0],
-              scale: [1, 1.2, 1],
-              opacity: [0.3, 0.8, 0.3],
+              y: [0, -15, 0],
+              x: [0, 8, 0],
+              scale: [1, 1.1, 1],
+              opacity: [0.2, 0.6, 0.2],
             }}
             transition={{
               duration: 4 + Math.random() * 2,
@@ -89,7 +76,7 @@ const HeroEnhanced: React.FC<HeroEnhancedProps> = ({ onScrollToSection }) => {
       </div>
 
       {/* Content with Enhanced Animations */}
-      <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      <div className="relative z-20 text-center px-6 max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
@@ -97,20 +84,26 @@ const HeroEnhanced: React.FC<HeroEnhancedProps> = ({ onScrollToSection }) => {
         >
           <motion.h1 
             className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
+            style={{
+              textShadow: '2px 2px 8px rgba(0,0,0,0.7), 0 0 20px rgba(191,10,48,0.3)'
+            }}
             animate={{
               textShadow: [
-                "0 0 20px rgba(191, 10, 48, 0.5)",
-                "0 0 40px rgba(191, 10, 48, 0.3)",
-                "0 0 20px rgba(191, 10, 48, 0.5)",
+                "2px 2px 8px rgba(0,0,0,0.7), 0 0 20px rgba(191,10,48,0.3)",
+                "2px 2px 8px rgba(0,0,0,0.7), 0 0 30px rgba(191,10,48,0.4)",
+                "2px 2px 8px rgba(0,0,0,0.7), 0 0 20px rgba(191,10,48,0.3)",
               ],
             }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           >
-            Hopewell <span className="text-blue-300">VA250</span>
+            Hopewell <span className="text-blue-200">VA250</span>
           </motion.h1>
           
           <motion.h2 
             className="text-2xl md:text-3xl font-bold text-white mb-8"
+            style={{
+              textShadow: '1px 1px 4px rgba(0,0,0,0.8)'
+            }}
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.3 }}
@@ -119,7 +112,10 @@ const HeroEnhanced: React.FC<HeroEnhancedProps> = ({ onScrollToSection }) => {
           </motion.h2>
           
           <motion.p 
-            className="text-xl md:text-2xl text-white mb-12 leading-relaxed opacity-90"
+            className="text-xl md:text-2xl text-white mb-12 leading-relaxed opacity-95"
+            style={{
+              textShadow: '1px 1px 3px rgba(0,0,0,0.7)'
+            }}
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.6 }}
@@ -131,12 +127,15 @@ const HeroEnhanced: React.FC<HeroEnhancedProps> = ({ onScrollToSection }) => {
           <motion.button
             onClick={() => onScrollToSection('about')}
             className="group inline-flex items-center bg-[#BF0A30] hover:bg-red-700 text-white font-bold py-4 px-8 rounded-full text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+            style={{
+              boxShadow: '0 4px 15px rgba(0,0,0,0.3)'
+            }}
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.9 }}
             whileHover={{ 
               scale: 1.05,
-              boxShadow: "0 20px 40px rgba(191, 10, 48, 0.3)",
+              boxShadow: "0 8px 25px rgba(191, 10, 48, 0.4), 0 4px 15px rgba(0,0,0,0.3)",
             }}
             whileTap={{ scale: 0.95 }}
           >
@@ -148,11 +147,12 @@ const HeroEnhanced: React.FC<HeroEnhancedProps> = ({ onScrollToSection }) => {
 
       {/* Enhanced Scroll Indicator */}
       <motion.div 
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
         animate={{ y: [0, 10, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
       >
-        <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
+        <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center"
+             style={{ boxShadow: '0 2px 8px rgba(0,0,0,0.3)' }}>
           <motion.div 
             className="w-1 h-3 bg-white rounded-full mt-2"
             animate={{ opacity: [1, 0.3, 1] }}

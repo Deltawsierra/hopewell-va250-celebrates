@@ -1,7 +1,7 @@
-
 import React, { useEffect, useState, useRef } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { motion } from 'framer-motion';
+import HeroFlagLottieOverlay from './HeroFlagLottieOverlay';
 
 interface HeroEnhancedProps {
   onScrollToSection: (sectionId: string) => void;
@@ -43,9 +43,12 @@ const HeroEnhanced: React.FC<HeroEnhancedProps> = ({ onScrollToSection }) => {
       <div
         className="absolute inset-0 z-10"
         style={{
-          background: `linear-gradient(180deg, rgba(0,40,104,0.45) 0%, rgba(191,10,48,0.30) 60%, rgba(255,255,255,0.15) 100%)`,
+          background: `linear-gradient(180deg, rgba(0,40,104,0.35) 0%, rgba(191,10,48,0.25) 60%, rgba(255,255,255,0.10) 100%)`,
         }}
       />
+
+      {/* Animated American Flag Lottie Overlay */}
+      <HeroFlagLottieOverlay opacity={0.25} mixBlendMode="lighten" />
 
       {/* Subtle Animated Background Elements */}
       <div ref={flagRef} className="absolute inset-0 opacity-15 pointer-events-none z-15">

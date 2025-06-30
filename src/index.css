@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -253,4 +252,53 @@ html {
     rgba(191, 10, 48, 0.1) 50%,
     rgba(0, 40, 104, 0.1) 100%
   );
+}
+
+/* Waving flag animations */
+@keyframes wave-stripe {
+  0%, 100% {
+    transform: translateX(0) scaleX(1);
+  }
+  25% {
+    transform: translateX(2px) scaleX(1.01);
+  }
+  50% {
+    transform: translateX(0) scaleX(0.99);
+  }
+  75% {
+    transform: translateX(-2px) scaleX(1.01);
+  }
+}
+
+@keyframes wave-canton {
+  0%, 100% {
+    transform: translateX(0) skewX(0deg);
+  }
+  25% {
+    transform: translateX(1px) skewX(0.5deg);
+  }
+  50% {
+    transform: translateX(0) skewX(0deg);
+  }
+  75% {
+    transform: translateX(-1px) skewX(-0.5deg);
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+/* Performance optimizations for flag animations */
+.flag-overlay {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  perspective: 1000px;
 }

@@ -2,6 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { ChevronDown } from 'lucide-react';
 import { motion } from 'framer-motion';
+import HeroFlagOverlay from './HeroFlagOverlay';
 
 interface HeroEnhancedProps {
   onScrollToSection: (sectionId: string) => void;
@@ -39,71 +40,16 @@ const HeroEnhanced: React.FC<HeroEnhancedProps> = ({ onScrollToSection }) => {
         draggable={false}
       />
 
-      {/* American Flag Overlay */}
-      <div className="absolute inset-0 z-10 flag-overlay">
-        {/* Blue Canton with Stars */}
-        <div className="absolute top-0 left-0 w-1/3 h-2/5 bg-[#002868] opacity-60 flex items-center justify-center">
-          <svg
-            width="100%"
-            height="100%"
-            viewBox="0 0 300 200"
-            className="absolute inset-0"
-          >
-            {/* Generate stars in a pattern */}
-            {[...Array(50)].map((_, i) => {
-              const row = Math.floor(i / 10);
-              const col = i % 10;
-              const x = 20 + col * 26 + (row % 2 === 1 ? 13 : 0);
-              const y = 20 + row * 20;
-              return (
-                <motion.circle
-                  key={i}
-                  cx={x}
-                  cy={y}
-                  r="2"
-                  fill="white"
-                  animate={{
-                    opacity: [0.6, 1, 0.6],
-                    scale: [1, 1.2, 1],
-                  }}
-                  transition={{
-                    duration: 2 + Math.random() * 2,
-                    repeat: Infinity,
-                    delay: Math.random() * 2,
-                    ease: "easeInOut",
-                  }}
-                />
-              );
-            })}
-          </svg>
-        </div>
+      {/* Gradient overlay for text readability */}
+      <div
+        className="absolute inset-0 z-10"
+        style={{
+          background: `linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.1) 100%)`,
+        }}
+      />
 
-        {/* Red and White Stripes */}
-        <div className="absolute inset-0 flex flex-col">
-          {[...Array(13)].map((_, i) => (
-            <motion.div
-              key={i}
-              className={`flex-1 ${i % 2 === 0 ? 'bg-[#BF0A30]' : 'bg-white'} opacity-25`}
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{
-                duration: 1.5,
-                delay: i * 0.1,
-                ease: "easeOut",
-              }}
-              style={{ transformOrigin: 'left' }}
-            />
-          ))}
-        </div>
-
-        {/* Additional subtle gradient for text readability */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.1) 100%)`,
-          }}
-        />
-      </div>
+      {/* Animated American Flag Overlay */}
+      <HeroFlagOverlay />
 
       {/* Content with Enhanced Animations */}
       <div className="relative z-20 text-center px-6 max-w-4xl mx-auto">

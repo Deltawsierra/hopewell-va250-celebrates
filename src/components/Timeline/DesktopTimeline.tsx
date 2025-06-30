@@ -22,15 +22,17 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
   isScrolling,
   setIsScrolling
 }) => {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const scrollerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const [animationSpeed, setAnimationSpeed] = useState('0s');
 
   // Update scroll progress and boundary states
   const updateScrollState = () => {
-    if (scrollContainerRef.current) {
-      const container = scrollContainerRef.current;
+    if (containerRef.current) {
+      const container = containerRef.current;
       const scrollLeft = container.scrollLeft;
       const maxScroll = container.scrollWidth - container.clientWidth;
       
@@ -44,15 +46,35 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
     }
   };
 
-  // Auto-scroll functionality with boundary checking
+  // Set CSS custom properties for smooth animation
+  useEffect(() => {
+    if (containerRef.current) {
+      const container = containerRef.current;
+      
+      if (isScrolling) {
+        // Set animation properties
+        container.style.setProperty('--animation-duration', '0.5s');
+        container.style.setProperty(
+          '--animation-direction', 
+          isScrolling === 'left' ? 'reverse' : 'forwards'
+        );
+        setAnimationSpeed('0.5s');
+      } else {
+        container.style.setProperty('--animation-duration', '0s');
+        setAnimationSpeed('0s');
+      }
+    }
+  }, [isScrolling]);
+
+  // Smooth scroll functionality
   useEffect(() => {
     let scrollInterval: NodeJS.Timeout;
     
-    if (isScrolling && scrollContainerRef.current) {
+    if (isScrolling && containerRef.current) {
       scrollInterval = setInterval(() => {
-        if (scrollContainerRef.current) {
-          const container = scrollContainerRef.current;
-          const scrollAmount = isScrolling === 'left' ? -3 : 3;
+        if (containerRef.current) {
+          const container = containerRef.current;
+          const scrollAmount = isScrolling === 'left' ? -2 : 2;
           const newScrollLeft = container.scrollLeft + scrollAmount;
           const maxScroll = container.scrollWidth - container.clientWidth;
           
@@ -66,7 +88,7 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
           container.scrollLeft = newScrollLeft;
           updateScrollState();
         }
-      }, 16); // ~60fps
+      }, 16); // ~60fps for smooth movement
     }
 
     return () => {
@@ -78,7 +100,7 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
 
   // Listen for scroll events to update progress
   useEffect(() => {
-    const container = scrollContainerRef.current;
+    const container = containerRef.current;
     if (container) {
       const handleScroll = () => {
         updateScrollState();
@@ -96,7 +118,7 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
     const container = e.currentTarget;
     const rect = container.getBoundingClientRect();
     const x = e.clientX - rect.left;
-    const threshold = 120; // pixels from edge to trigger scroll
+    const threshold = 150; // pixels from edge to trigger scroll
 
     if (x < threshold && canScrollLeft) {
       setIsScrolling('left');
@@ -115,40 +137,79 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
   return (
     <div className="hidden md:block relative pb-64">
       <div 
-        ref={scrollContainerRef}
-        className="overflow-x-auto overflow-y-hidden scrollbar-hide cursor-pointer w-full relative"
+        ref={containerRef}
+        className="timeline-container overflow-x-auto overflow-y-hidden scrollbar-hide cursor-pointer w-full relative"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{ 
           scrollbarWidth: 'none', 
-          msOverflowStyle: 'none'
+          msOverflowStyle: 'none',
+          scrollBehavior: 'smooth'
         }}
       >
         {/* Left Navigation Hover Zone */}
         {canScrollLeft && (
           <motion.div
-            className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-gray-100/40 to-transparent z-20 flex items-center justify-start pl-4 pointer-events-none"
+            className="absolute left-0 top-0 bottom-0 w-40 bg-gradient-to-r from-gray-100/20 via-gray-100/10 to-transparent z-20 flex items-center justify-start pl-6 pointer-events-none"
             initial={{ opacity: 0 }}
-            animate={{ opacity: isScrolling === 'left' ? 0.8 : 0.3 }}
-            transition={{ duration: 0.2 }}
+            animate={{ 
+              opacity: isScrolling === 'left' ? 0.9 : 0.4,
+              background: isScrolling === 'left' 
+                ? 'linear-gradient(to right, rgba(156, 163, 175, 0.3), transparent)' 
+                : 'linear-gradient(to right, rgba(156, 163, 175, 0.2), transparent)'
+            }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
           >
-            <ChevronLeft className="w-8 h-8 text-[#002868] drop-shadow-lg" />
+            <motion.div
+              animate={{ 
+                x: isScrolling === 'left' ? [-2, 2, -2] : 0,
+                scale: isScrolling === 'left' ? 1.1 : 1
+              }}
+              transition={{ 
+                x: { duration: 1, repeat: Infinity, ease: "easeInOut" },
+                scale: { duration: 0.3 }
+              }}
+            >
+              <ChevronLeft className="w-10 h-10 text-[#002868] drop-shadow-lg" />
+            </motion.div>
           </motion.div>
         )}
 
         {/* Right Navigation Hover Zone */}
         {canScrollRight && (
           <motion.div
-            className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-gray-100/40 to-transparent z-20 flex items-center justify-end pr-4 pointer-events-none"
+            className="absolute right-0 top-0 bottom-0 w-40 bg-gradient-to-l from-gray-100/20 via-gray-100/10 to-transparent z-20 flex items-center justify-end pr-6 pointer-events-none"
             initial={{ opacity: 0 }}
-            animate={{ opacity: isScrolling === 'right' ? 0.8 : 0.3 }}
-            transition={{ duration: 0.2 }}
+            animate={{ 
+              opacity: isScrolling === 'right' ? 0.9 : 0.4,
+              background: isScrolling === 'right' 
+                ? 'linear-gradient(to left, rgba(156, 163, 175, 0.3), transparent)' 
+                : 'linear-gradient(to left, rgba(156, 163, 175, 0.2), transparent)'
+            }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
           >
-            <ChevronRight className="w-8 h-8 text-[#002868] drop-shadow-lg" />
+            <motion.div
+              animate={{ 
+                x: isScrolling === 'right' ? [2, -2, 2] : 0,
+                scale: isScrolling === 'right' ? 1.1 : 1
+              }}
+              transition={{ 
+                x: { duration: 1, repeat: Infinity, ease: "easeInOut" },
+                scale: { duration: 0.3 }
+              }}
+            >
+              <ChevronRight className="w-10 h-10 text-[#002868] drop-shadow-lg" />
+            </motion.div>
           </motion.div>
         )}
 
-        <div className="relative min-w-full py-12 px-8">
+        <div 
+          ref={scrollerRef}
+          className="relative min-w-full py-12 px-8 transition-transform duration-300 ease-out"
+          style={{
+            transform: isScrolling ? `translateX(${isScrolling === 'left' ? '2px' : '-2px'})` : 'translateX(0)',
+          }}
+        >
           {/* Timeline Events */}
           <div className="flex justify-between items-start relative w-full" style={{ minWidth: '1800px' }}>
             {timelineEvents.map((event, index) => (
@@ -171,20 +232,38 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
           
           {/* Dynamic Progress Timeline Line */}
           <motion.div 
-            className="absolute left-8 h-3 bg-gradient-to-r from-[#002868] via-[#BF0A30] to-[#002868] rounded-full pointer-events-none"
+            className="absolute left-8 h-3 bg-gradient-to-r from-[#002868] via-[#BF0A30] to-[#002868] rounded-full pointer-events-none shadow-lg"
             style={{ 
               top: '280px',
-              right: `${(1 - scrollProgress) * 100}%`,
+              width: `${scrollProgress * 100}%`,
             }}
             initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
+            animate={{ 
+              scaleX: 1,
+              boxShadow: isScrolling ? '0 0 20px rgba(191, 10, 48, 0.4)' : '0 4px 6px rgba(0, 0, 0, 0.1)'
+            }}
             transition={{ 
-              duration: 0.3,
-              ease: "easeOut"
+              scaleX: { duration: 0.3, ease: "easeOut" },
+              boxShadow: { duration: 0.3 }
             }}
           />
         </div>
       </div>
+
+      <style jsx>{`
+        .timeline-container {
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .timeline-container::-webkit-scrollbar {
+          display: none;
+        }
+        
+        @keyframes smooth-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-2px); }
+        }
+      `}</style>
     </div>
   );
 };

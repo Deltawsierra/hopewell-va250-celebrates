@@ -1,8 +1,11 @@
 
 import React from 'react';
-import { Facebook, Twitter, Instagram, Mail, Phone, MapPin } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Mail, Phone, MapPin, RotateCcw } from 'lucide-react';
+import { useAccessibility } from '../hooks/useAccessibility';
 
 const Footer = () => {
+  const { accessibility, increaseTextSize, toggleHighContrast, resetPreferences } = useAccessibility();
+
   return (
     <footer id="accessibility" className="bg-[#002868] text-white py-16">
       <div className="max-w-6xl mx-auto px-6">
@@ -59,11 +62,32 @@ const Footer = () => {
             Our website features keyboard navigation, screen reader compatibility, and adjustable text sizes.
           </p>
           <div className="flex flex-wrap gap-4">
-            <button className="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded transition-colors duration-300">
-              A+ Increase Text Size
+            <button 
+              onClick={increaseTextSize}
+              className={`px-4 py-2 rounded transition-colors duration-300 ${
+                accessibility.textSize === 'large' 
+                  ? 'bg-[#BF0A30] hover:bg-red-700 text-white' 
+                  : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
+              }`}
+            >
+              A+ {accessibility.textSize === 'large' ? 'Reset' : 'Increase'} Text Size
             </button>
-            <button className="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded transition-colors duration-300">
-              High Contrast Mode
+            <button 
+              onClick={toggleHighContrast}
+              className={`px-4 py-2 rounded transition-colors duration-300 ${
+                accessibility.highContrast 
+                  ? 'bg-[#BF0A30] hover:bg-red-700 text-white' 
+                  : 'bg-gray-700 hover:bg-gray-600 text-gray-300'
+              }`}
+            >
+              {accessibility.highContrast ? 'Normal' : 'High'} Contrast Mode
+            </button>
+            <button 
+              onClick={resetPreferences}
+              className="bg-gray-600 hover:bg-gray-500 px-4 py-2 rounded transition-colors duration-300 flex items-center gap-2"
+            >
+              <RotateCcw className="w-4 h-4" />
+              Reset Preferences
             </button>
             <a href="mailto:accessibility@hopewell.gov" className="bg-[#BF0A30] hover:bg-red-700 px-4 py-2 rounded transition-colors duration-300">
               Report Accessibility Issue

@@ -100,6 +100,39 @@
   }
 }
 
+/* High Contrast Mode Styles */
+.high-contrast {
+  filter: contrast(150%) brightness(1.2);
+}
+
+.high-contrast * {
+  border-color: #000 !important;
+}
+
+.high-contrast .text-gray-300 {
+  color: #fff !important;
+}
+
+.high-contrast .text-gray-600 {
+  color: #000 !important;
+}
+
+.high-contrast .text-gray-700 {
+  color: #000 !important;
+}
+
+.high-contrast .bg-gray-50 {
+  background-color: #fff !important;
+}
+
+.high-contrast .bg-blue-50 {
+  background-color: #fff !important;
+}
+
+.high-contrast .bg-red-50 {
+  background-color: #fff !important;
+}
+
 /* Custom Scrollbar for Patriotic Theme */
 ::-webkit-scrollbar {
   width: 8px;

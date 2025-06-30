@@ -1,4 +1,3 @@
-
 export interface HistoricSite {
   id: number;
   name: string;
@@ -41,7 +40,7 @@ export const historicSites: HistoricSite[] = [
     id: 4,
     name: 'Historic Downtown',
     description: 'Charming brick buildings housing local shops, restaurants, and community spaces reflecting Hopewell\'s industrial heritage and modern revitalization efforts.',
-    image: '/lovable-uploads/bcd6728f-2e29-4995-9579-b5114652ca3c.png',
+    image: '/lovable-uploads/c34755e5-e202-4985-bbcf-9757b113aba4.png',
     hours: 'Always Open',
     address: 'Downtown Hopewell, VA',
     details: 'Part of the City Point Historic District, showcasing architectural evolution from colonial tobacco warehouses to 20th-century industrial buildings.'

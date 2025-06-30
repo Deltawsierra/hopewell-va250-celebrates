@@ -43,14 +43,14 @@ export const Vortex = (props: VortexProps) => {
   let particleProps = new Float32Array(particlePropsLength);
   let center: [number, number] = [0, 0];
 
-  // Bright patriotic colors
+  // Bright patriotic colors with stable opacity
   const brightColors = [
-    'rgba(255, 0, 0, 0.9)',     // Bright red
-    'rgba(0, 100, 255, 0.9)',   // Bright blue
+    'rgba(255, 0, 0, 0.8)',     // Bright red
+    'rgba(0, 100, 255, 0.8)',   // Bright blue
     'rgba(255, 255, 255, 0.9)', // Bright white
-    'rgba(192, 192, 192, 0.9)', // Silver
-    'rgba(255, 50, 50, 0.9)',   // Bright red variant
-    'rgba(50, 150, 255, 0.9)',  // Bright blue variant
+    'rgba(192, 192, 192, 0.7)', // Silver
+    'rgba(255, 50, 50, 0.8)',   // Bright red variant
+    'rgba(50, 150, 255, 0.8)',  // Bright blue variant
   ];
 
   const HALF_PI: number = 0.5 * Math.PI;
@@ -58,10 +58,6 @@ export const Vortex = (props: VortexProps) => {
   const TO_RAD: number = Math.PI / 180;
   const rand = (n: number): number => n * Math.random();
   const randRange = (n: number): number => n - rand(2 * n);
-  const fadeInOut = (t: number, m: number): number => {
-    let hm = 0.5 * m;
-    return Math.abs(((t + hm) % m) - hm) / hm;
-  };
   const lerp = (n1: number, n2: number, speed: number): number =>
     (1 - speed) * n1 + speed * n2;
 
@@ -185,12 +181,14 @@ export const Vortex = (props: VortexProps) => {
     ctx.lineCap = "round";
     ctx.lineWidth = radius;
     
-    // Use bright patriotic colors instead of HSL
-    const colorIndex = Math.floor(Math.random() * brightColors.length);
-    const opacity = fadeInOut(life, ttl);
-    const color = brightColors[colorIndex].replace('0.9', opacity.toString());
+    // Use bright patriotic colors with stable opacity
+    const colorIndex = Math.floor(hue / 60) % brightColors.length;
+    ctx.strokeStyle = brightColors[colorIndex];
     
-    ctx.strokeStyle = color;
+    // Add a subtle glow effect
+    ctx.shadowColor = brightColors[colorIndex];
+    ctx.shadowBlur = 3;
+    
     ctx.beginPath();
     ctx.moveTo(x, y);
     ctx.lineTo(x2, y2);

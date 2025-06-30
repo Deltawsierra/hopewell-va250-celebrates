@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Calendar, MapPin, Clock, Users, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -53,20 +52,21 @@ const EventCalendarEnhanced = () => {
       <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-red-100 to-transparent pointer-events-none"></div>
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
-        {/* 3D Marquee Effect */}
+        {/* Infinite Seamless Marquee Effect */}
         <div className="mb-8 overflow-hidden bg-gradient-to-r from-[#002868] to-[#BF0A30] rounded-lg shadow-lg">
           <motion.div
             className="flex whitespace-nowrap py-4 text-white font-bold text-lg"
-            animate={{ x: [0, -2000] }}
+            animate={{ x: [0, -1000] }}
             transition={{ 
-              duration: 30, 
+              duration: 20, 
               repeat: Infinity, 
               ease: "linear" 
             }}
           >
-            <span className="px-8">{marqueeText}</span>
-            <span className="px-8">{marqueeText}</span>
-            <span className="px-8">{marqueeText}</span>
+            {/* Repeat the text multiple times to ensure seamless loop */}
+            {Array.from({ length: 10 }, (_, i) => (
+              <span key={i} className="px-8">{marqueeText}</span>
+            ))}
           </motion.div>
         </div>
 

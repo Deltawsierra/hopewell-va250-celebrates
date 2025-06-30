@@ -68,10 +68,13 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
     <div className="hidden md:block relative pb-64">
       <div 
         ref={scrollContainerRef}
-        className="overflow-x-auto scrollbar-hide cursor-pointer w-full"
+        className="overflow-x-auto overflow-y-hidden scrollbar-hide cursor-pointer w-full"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        style={{ 
+          scrollbarWidth: 'none', 
+          msOverflowStyle: 'none'
+        }}
       >
         <div className="relative min-w-full py-12 px-8">
           {/* Timeline Events */}

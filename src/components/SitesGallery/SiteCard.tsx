@@ -12,6 +12,12 @@ interface SiteCardProps {
 }
 
 const SiteCard = ({ site, isHovered, onHoverStart, onHoverEnd }: SiteCardProps) => {
+  const handleLearnMoreClick = () => {
+    if (site.website) {
+      window.open(site.website, '_blank', 'noopener,noreferrer');
+    }
+  };
+
   return (
     <motion.div
       className="group relative bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer"
@@ -73,6 +79,7 @@ const SiteCard = ({ site, isHovered, onHoverStart, onHoverEnd }: SiteCardProps) 
               className="flex-1 bg-[#002868] hover:bg-blue-800 text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-200"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              onClick={handleLearnMoreClick}
             >
               Learn More
             </motion.button>

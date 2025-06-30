@@ -21,19 +21,14 @@ const ProgressLine: React.FC<ProgressLineProps> = ({ scrollProgress, isScrolling
         className="absolute left-8 h-3 bg-gradient-to-r from-[#002868] via-[#BF0A30] to-[#002868] rounded-full pointer-events-none shadow-lg"
         style={{ 
           top: '280px',
+          width: `${Math.max(scrollProgress * 100, 0)}%`
         }}
-        animate={{ 
-          width: `${Math.max(scrollProgress * 100, 0)}%`,
+        animate={{
           boxShadow: isScrolling 
             ? '0 0 20px rgba(191, 10, 48, 0.6), 0 0 40px rgba(191, 10, 48, 0.3)' 
             : '0 4px 6px rgba(0, 0, 0, 0.1)'
         }}
         transition={{ 
-          width: { 
-            duration: 0.05, 
-            ease: "linear",
-            type: "tween"
-          },
           boxShadow: { duration: 0.3 }
         }}
       />

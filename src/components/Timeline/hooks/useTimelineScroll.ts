@@ -1,5 +1,5 @@
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useCallback } from 'react';
 
 export const useTimelineScroll = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -8,7 +8,7 @@ export const useTimelineScroll = () => {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const updateScrollState = () => {
+  const updateScrollState = useCallback(() => {
     if (containerRef.current) {
       const container = containerRef.current;
       const scrollLeft = container.scrollLeft;
@@ -20,7 +20,7 @@ export const useTimelineScroll = () => {
       setCanScrollLeft(scrollLeft > 1);
       setCanScrollRight(scrollLeft < maxScroll - 1);
     }
-  };
+  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -30,11 +30,21 @@ export const useTimelineScroll = () => {
       };
       
       container.addEventListener('scroll', handleScroll, { passive: true });
+      
+      // Use ResizeObserver to handle container size changes
+      const resizeObserver = new ResizeObserver(() => {
+        updateScrollState();
+      });
+      
+      resizeObserver.observe(container);
       updateScrollState();
       
-      return () => container.removeEventListener('scroll', handleScroll);
+      return () => {
+        container.removeEventListener('scroll', handleScroll);
+        resizeObserver.disconnect();
+      };
     }
-  }, []);
+  }, [updateScrollState]);
 
   return {
     containerRef,

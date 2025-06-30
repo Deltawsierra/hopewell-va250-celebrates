@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Calendar, MapPin, Clock, Users, Star } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -94,11 +95,14 @@ const EventCalendarEnhanced = () => {
   const marqueeText = "Next Up: VA250 Kickoff at Weston Manor • City Point History Walk • Family Day at Beacon Theatre • Civil War Living History • ";
 
   return (
-    <section id="events" className="py-20 bg-gradient-to-b from-red-50 to-blue-50 relative overflow-hidden">
-      {/* Animated Background Pattern */}
+    <section id="events" className="py-20 bg-gradient-to-b from-red-100 via-blue-50 to-blue-100 relative overflow-hidden">
+      {/* Subtle Animated Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0 bg-[linear-gradient(45deg,_#002868_25%,_transparent_25%,_transparent_75%,_#002868_75%,_#002868),_linear-gradient(45deg,_#002868_25%,_transparent_25%,_transparent_75%,_#002868_75%,_#002868)] bg-[length:20px_20px] bg-[position:0_0,_10px_10px]"></div>
       </div>
+
+      {/* Seamless transition overlay */}
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-red-100 to-transparent pointer-events-none"></div>
 
       <div className="max-w-6xl mx-auto px-6 relative z-10">
         {/* 3D Marquee Effect */}
@@ -306,7 +310,7 @@ const EventCalendarEnhanced = () => {
             transition={{ duration: 0.5 }}
           >
             <p className="text-gray-500 text-lg">No events found for the selected filter.</p>
-          </motion.div>
+          </div>
         )}
       </div>
     </section>

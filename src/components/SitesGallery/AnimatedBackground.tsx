@@ -8,12 +8,12 @@ const AnimatedBackground = () => {
       <Vortex
         backgroundColor="transparent"
         rangeY={800}
-        particleCount={400}
+        particleCount={500}
         baseHue={0}
         rangeSpeed={3}
-        baseSpeed={1}
-        baseRadius={1.2}
-        rangeRadius={2.5}
+        baseSpeed={0.5}
+        baseRadius={1.5}
+        rangeRadius={1.5}
         className="w-full h-full"
       />
     </div>

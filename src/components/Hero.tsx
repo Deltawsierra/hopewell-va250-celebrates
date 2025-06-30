@@ -26,10 +26,8 @@ const Hero: React.FC<HeroProps> = ({ onScrollToSection }) => {
       />
       <div className="absolute inset-0 bg-[#002868] bg-opacity-70 z-10" />
       
-      {/* Flag GIF Overlay - Higher z-index to ensure visibility */}
-      <div className="relative z-20">
-        <HeroFlagGifOverlay />
-      </div>
+      {/* Flag GIF Overlay - Moved directly after background elements */}
+      <HeroFlagGifOverlay />
       
       {/* Patriotic Stars Pattern */}
       <div className="absolute inset-0 opacity-10 z-30">

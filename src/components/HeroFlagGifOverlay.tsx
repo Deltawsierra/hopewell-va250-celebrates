@@ -7,7 +7,7 @@ export default function HeroFlagGifOverlay() {
       aria-hidden="true"
       className="absolute inset-0 pointer-events-none select-none"
       style={{
-        opacity: 0.4,
+        opacity: 0.5,
         mixBlendMode: 'screen',
         display: 'flex',
         alignItems: 'center',
@@ -24,6 +24,8 @@ export default function HeroFlagGifOverlay() {
           pointerEvents: 'none',
         }}
         draggable={false}
+        onLoad={() => console.log('Flag overlay image loaded')}
+        onError={() => console.log('Flag overlay image failed to load')}
       />
     </div>
   );

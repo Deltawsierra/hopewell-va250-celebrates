@@ -5,52 +5,55 @@ import { motion } from 'framer-motion';
 interface ProgressLineProps {
   scrollProgress: number;
   isScrolling: 'left' | 'right' | false;
-  containerWidth?: number;
-  totalWidth?: number;
+  containerWidth: number;
+  totalWidth: number;
+  visibleProgress: number;
 }
 
 const ProgressLine: React.FC<ProgressLineProps> = ({ 
   scrollProgress, 
   isScrolling, 
-  containerWidth = 0, 
-  totalWidth = 0 
+  containerWidth, 
+  totalWidth,
+  visibleProgress
 }) => {
-  // Calculate the progress line width based on scroll position
-  // The line should extend from left edge to the right edge of the visible area
-  const visibleRatio = containerWidth > 0 && totalWidth > 0 ? containerWidth / totalWidth : 0;
-  const scrollRatio = scrollProgress;
+  // Calculate the full background line width (entire timeline)
+  const backgroundWidth = totalWidth > 0 ? totalWidth - 64 : 'calc(100% - 64px)';
   
-  // Progress width should be: visible portion + scrolled portion of the remaining timeline
-  const progressWidth = Math.min((visibleRatio + scrollRatio * (1 - visibleRatio)) * 100, 100);
-
-  // Calculate the actual pixel width for the background line to span full timeline
-  const backgroundWidth = totalWidth > 0 ? totalWidth - 64 : 'calc(100% - 64px)'; // 64px = left-8 + right-8
+  // Calculate the progress line width based on visible content
+  const progressWidth = Math.min(visibleProgress * 100, 100);
 
   return (
     <>
       {/* Background Timeline Line - spans full timeline width */}
       <div 
-        className="absolute left-8 h-3 bg-gray-200 rounded-full pointer-events-none"
+        className="absolute left-8 h-2 bg-gray-300/60 rounded-full pointer-events-none"
         style={{ 
           top: '280px',
-          width: typeof backgroundWidth === 'number' ? `${backgroundWidth}px` : backgroundWidth
+          width: typeof backgroundWidth === 'number' ? `${backgroundWidth}px` : backgroundWidth,
+          boxShadow: 'inset 0 1px 3px rgba(0, 0, 0, 0.1)'
         }}
       />
       
       {/* Dynamic Progress Timeline Line */}
       <motion.div 
-        className="absolute left-8 h-3 bg-gradient-to-r from-[#002868] via-[#BF0A30] to-[#002868] rounded-full pointer-events-none shadow-lg"
+        className="absolute left-8 h-2 rounded-full pointer-events-none"
         style={{ 
           top: '280px',
-          width: typeof backgroundWidth === 'number' ? `${(backgroundWidth * progressWidth) / 100}px` : `${progressWidth}%`
+          background: 'linear-gradient(90deg, #002868 0%, #BF0A30 50%, #002868 100%)',
+          width: typeof backgroundWidth === 'number' ? `${(backgroundWidth * progressWidth) / 100}px` : `${progressWidth}%`,
+          boxShadow: isScrolling 
+            ? '0 0 25px rgba(191, 10, 48, 0.6), 0 0 45px rgba(191, 10, 48, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2)' 
+            : '0 2px 8px rgba(0, 40, 104, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2)'
         }}
         animate={{
           boxShadow: isScrolling 
-            ? '0 0 20px rgba(191, 10, 48, 0.6), 0 0 40px rgba(191, 10, 48, 0.3)' 
-            : '0 4px 6px rgba(0, 0, 0, 0.1)'
+            ? '0 0 25px rgba(191, 10, 48, 0.6), 0 0 45px rgba(191, 10, 48, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2)' 
+            : '0 2px 8px rgba(0, 40, 104, 0.3), 0 1px 3px rgba(0, 0, 0, 0.2)'
         }}
         transition={{ 
-          boxShadow: { duration: 0.3 }
+          boxShadow: { duration: 0.3 },
+          width: { duration: 0.2, ease: "easeOut" }
         }}
       />
     </>

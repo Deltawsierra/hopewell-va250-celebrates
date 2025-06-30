@@ -28,6 +28,7 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
     containerRef,
     scrollerRef,
     scrollProgress,
+    visibleProgress,
     canScrollLeft,
     canScrollRight,
     containerWidth,
@@ -41,7 +42,7 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
     const container = e.currentTarget;
     const rect = container.getBoundingClientRect();
     const x = e.clientX - rect.left;
-    const threshold = 80; // Reduced threshold for edge detection
+    const threshold = 100; // Area for triggering scroll
 
     if (x < threshold && canScrollLeft) {
       setIsScrolling('left');
@@ -67,14 +68,18 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
         style={{ 
           scrollbarWidth: 'none', 
           msOverflowStyle: 'none',
-          height: 'auto'
+          height: 'auto',
+          position: 'relative'
         }}
       >
-        <NavigationArrows
-          canScrollLeft={canScrollLeft}
-          canScrollRight={canScrollRight}
-          isScrolling={isScrolling}
-        />
+        {/* Navigation arrows positioned relative to this container */}
+        <div className="relative">
+          <NavigationArrows
+            canScrollLeft={canScrollLeft}
+            canScrollRight={canScrollRight}
+            isScrolling={isScrolling}
+          />
+        </div>
 
         <div 
           ref={scrollerRef}
@@ -95,6 +100,7 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
           
           <ProgressLine
             scrollProgress={scrollProgress}
+            visibleProgress={visibleProgress}
             isScrolling={isScrolling}
             containerWidth={containerWidth}
             totalWidth={totalWidth}

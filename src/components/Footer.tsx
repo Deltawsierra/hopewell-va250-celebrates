@@ -31,6 +31,7 @@ const Footer = () => {
               <li><a href="#timeline" className="text-gray-300 hover:text-white transition-colors duration-300">Timeline</a></li>
               <li><a href="#events" className="text-gray-300 hover:text-white transition-colors duration-300">Events</a></li>
               <li><a href="#sites" className="text-gray-300 hover:text-white transition-colors duration-300">Historic Sites</a></li>
+              <li><a href="https://www.hopewellva.gov/" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors duration-300">Hopewell Website</a></li>
             </ul>
           </div>
 

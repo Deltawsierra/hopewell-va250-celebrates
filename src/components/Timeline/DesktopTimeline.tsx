@@ -101,7 +101,7 @@ const DesktopTimeline: React.FC<DesktopTimelineProps> = ({
       {/* Instructional Text */}
       <div className="text-center mb-8 px-4">
         <p className="text-sm text-gray-600 bg-blue-50 rounded-lg p-3 max-w-2xl mx-auto">
-          💡 <strong>Scroll to explore:</strong> Use your mouse wheel, trackpad, or drag to navigate through the timeline horizontally
+          💡 <strong>Scroll or Drag to explore:</strong> Use your mouse wheel, trackpad, or drag to navigate through the timeline horizontally
         </p>
       </div>
 

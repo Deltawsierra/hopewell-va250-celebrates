@@ -43,7 +43,9 @@ export const useTimelineScroll = () => {
       });
       
       resizeObserver.observe(container);
-      updateScrollState();
+      
+      // Initial update
+      setTimeout(updateScrollState, 0);
       
       return () => {
         container.removeEventListener('scroll', handleScroll);

@@ -13,7 +13,7 @@ export const useSmoothScroll = (
     const smoothScroll = () => {
       if (isScrolling && containerRef.current) {
         const container = containerRef.current;
-        const scrollSpeed = 2;
+        const scrollSpeed = 3; // Slightly faster scroll
         const scrollAmount = isScrolling === 'left' ? -scrollSpeed : scrollSpeed;
         const newScrollLeft = container.scrollLeft + scrollAmount;
         const maxScroll = container.scrollWidth - container.clientWidth;
@@ -25,7 +25,7 @@ export const useSmoothScroll = (
         }
         
         container.scrollLeft = newScrollLeft;
-        updateScrollState();
+        updateScrollState(); // Update progress during scroll
         
         animationRef.current = requestAnimationFrame(smoothScroll);
       }

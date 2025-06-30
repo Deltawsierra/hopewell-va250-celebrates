@@ -7,18 +7,15 @@ const Footer = () => {
   const { accessibility, increaseTextSize, toggleHighContrast, resetPreferences } = useAccessibility();
 
   return (
-    <footer id="accessibility" className="bg-[#002868] text-white py-16 relative">
-      {/* Top left gradient overlay */}
-      <div className="absolute top-0 left-0 w-80 h-80 bg-gradient-to-br from-blue-400/20 via-blue-500/10 to-transparent pointer-events-none"></div>
-      
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+    <footer id="accessibility" className="bg-[#002868] text-white py-16">
+      <div className="max-w-6xl mx-auto px-6">
         <div className="grid md:grid-cols-4 gap-8 mb-12">
           {/* Logo and Description */}
           <div className="md:col-span-2">
             <img 
               src="/lovable-uploads/6c8c455d-604e-48d5-9123-eb22a9eb5303.png" 
               alt="Hopewell VA250 Logo" 
-              className="h-36 mb-4"
+              className="h-32 mb-4"
             />
             <p className="text-gray-300 leading-relaxed">
               Celebrating 250 years of American independence and Hopewell's unique place in our nation's history. 

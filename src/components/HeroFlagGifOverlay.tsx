@@ -8,8 +8,8 @@ export default function HeroFlagGifOverlay() {
       className="absolute inset-0 pointer-events-none select-none"
       style={{
         zIndex: 12,
-        opacity: 0.27,
-        mixBlendMode: 'lighten',
+        opacity: 0.35,
+        mixBlendMode: 'screen',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -19,9 +19,9 @@ export default function HeroFlagGifOverlay() {
         src="/lovable-uploads/0161e249-0a21-4052-b752-39b5da822c7d.png"
         alt=""
         style={{
-          width: '90%',
-          height: 'auto',
-          objectFit: 'contain',
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
           pointerEvents: 'none',
         }}
         draggable={false}

@@ -22,12 +22,18 @@ const HeroFlagOverlay: React.FC = () => {
         <defs>
           <filter id="wave" x="0" y="0" width="100%" height="100%">
             <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="2" seed="5" result="turb" />
-            <feDisplacementMap in2="turb" in="SourceGraphic" scale="18" xChannelSelector="R" yChannelSelector="G">
-              <animate attributeName="scale" values="18;32;18" dur="5.2s" repeatCount="indefinite" />
+            <feDisplacementMap in2="turb" in="SourceGraphic" scale="12" xChannelSelector="R" yChannelSelector="G">
+              <animate attributeName="scale" values="12;22;12" dur="5.2s" repeatCount="indefinite" />
             </feDisplacementMap>
           </filter>
-          <symbol id="star" viewBox="0 0 10 10">
-            <polygon points="5,1 6,4 9,4 6.5,6 7.5,9 5,7 2.5,9 3.5,6 1,4 4,4" fill="#fff" />
+          <filter id="gentleWave" x="0" y="0" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="1" seed="3" result="turb" />
+            <feDisplacementMap in2="turb" in="SourceGraphic" scale="6" xChannelSelector="R" yChannelSelector="G">
+              <animate attributeName="scale" values="6;10;6" dur="4s" repeatCount="indefinite" />
+            </feDisplacementMap>
+          </filter>
+          <symbol id="star" viewBox="0 0 12 12">
+            <path d="M6 1 L7.2 4.8 L11 4.8 L8.4 7.2 L9.6 11 L6 8.4 L2.4 11 L3.6 7.2 L1 4.8 L4.8 4.8 Z" fill="#fff" stroke="#fff" strokeWidth="0.2" />
           </symbol>
         </defs>
         <g filter="url(#wave)">
@@ -44,32 +50,33 @@ const HeroFlagOverlay: React.FC = () => {
           ))}
           {/* Blue canton */}
           <rect x={0} y={0} width={192} height={172.2} fill="#002868" opacity={0.36} />
-          {/* Stars in the canton - 50 stars in 9 rows */}
-          <g>
-            {[
-              [0, 6, 14, 16],   // Row 1: 6 stars
-              [1, 5, 36, 28],   // Row 2: 5 stars
-              [2, 6, 58, 16],   // Row 3: 6 stars
-              [3, 5, 80, 28],   // Row 4: 5 stars
-              [4, 6, 102, 16],  // Row 5: 6 stars
-              [5, 5, 124, 28],  // Row 6: 5 stars
-              [6, 6, 146, 16],  // Row 7: 6 stars
-              [7, 5, 168, 28],  // Row 8: 5 stars
-              [8, 6, 190, 16],  // Row 9: 6 stars
-            ].map(([row, numStars, y, xStart]) =>
-              Array.from({ length: numStars }).map((_, i) => (
-                <use
-                  href="#star"
-                  key={`star-${row}-${i}`}
-                  x={xStart + i * 24}
-                  y={y}
-                  width={11}
-                  height={11}
-                  opacity={0.88}
-                />
-              ))
-            )}
-          </g>
+        </g>
+        
+        {/* Stars with gentler wave effect to prevent stretching */}
+        <g filter="url(#gentleWave)">
+          {[
+            [0, 6, 18, 20],   // Row 1: 6 stars
+            [1, 5, 32, 32],   // Row 2: 5 stars  
+            [2, 6, 46, 20],   // Row 3: 6 stars
+            [3, 5, 60, 32],   // Row 4: 5 stars
+            [4, 6, 74, 20],   // Row 5: 6 stars
+            [5, 5, 88, 32],   // Row 6: 5 stars
+            [6, 6, 102, 20],  // Row 7: 6 stars
+            [7, 5, 116, 32],  // Row 8: 5 stars
+            [8, 6, 130, 20],  // Row 9: 6 stars
+          ].map(([row, numStars, y, xStart]) =>
+            Array.from({ length: numStars }).map((_, i) => (
+              <use
+                href="#star"
+                key={`star-${row}-${i}`}
+                x={xStart + i * 26}
+                y={y}
+                width={10}
+                height={10}
+                opacity={0.92}
+              />
+            ))
+          )}
         </g>
       </svg>
     </div>

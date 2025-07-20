@@ -10,7 +10,7 @@ This is the official website for Hopewell's VA250 celebration, commemorating 250
 To run this project locally, you'll need Node.js and npm installed.
 
 ### Setup Instructions
-
+ 
 ```sh
 # Clone the repository
 git clone <repository-url>
